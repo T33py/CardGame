@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://8mr51aludca3"]
+
+[ext_resource type="Script" path="res://Cards/Hand.gd" id="1_352qs"]
+[ext_resource type="Texture2D" uid="uid://8ujeu6jiqytt" path="res://Art/UIArt/BG.png" id="2_iqfha"]
+[ext_resource type="Script" path="res://Cards/CardDisplayArea.gd" id="3_5aauf"]
+
+[node name="Hand" type="Node2D"]
+script = ExtResource("1_352qs")
+
+[node name="DisplayArea" type="Sprite2D" parent="."]
+modulate = Color(0.14902, 0.14902, 0.14902, 0.443137)
+texture = ExtResource("2_iqfha")
+script = ExtResource("3_5aauf")

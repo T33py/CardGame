@@ -1,27 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://d1bk2kdlqmaqi"]
+[gd_scene load_steps=4 format=3 uid="uid://d1bk2kdlqmaqi"]
 
-[ext_resource type="PackedScene" uid="uid://dvpn0452oidu1" path="res://Card/Card.tscn" id="1_tcyfo"]
+[ext_resource type="PackedScene" uid="uid://dvpn0452oidu1" path="res://Cards/Card.tscn" id="1_jgnmq"]
+[ext_resource type="PackedScene" uid="uid://8mr51aludca3" path="res://Cards/Hand.tscn" id="2_dh85x"]
+[ext_resource type="PackedScene" uid="uid://diaxixmrj6t2t" path="res://Cards/Deck.tscn" id="3_h1md0"]
 
 [node name="TestScene" type="Node2D"]
 
-[node name="Card" parent="." instance=ExtResource("1_tcyfo")]
-position = Vector2(72, 61)
+[node name="Hand" parent="." node_paths=PackedStringArray("current_deck") instance=ExtResource("2_dh85x")]
+position = Vector2(254, 506)
+scale = Vector2(0.216207, 0.0993241)
+current_deck = NodePath("../Deck")
 
-[node name="Card2" parent="." instance=ExtResource("1_tcyfo")]
-position = Vector2(172, 65)
-my_suit = 1
-my_value = 12
+[node name="Deck" parent="." instance=ExtResource("3_h1md0")]
+position = Vector2(574, 381)
 
-[node name="Card3" parent="." instance=ExtResource("1_tcyfo")]
-position = Vector2(276, 61)
-my_suit = 2
-my_value = 7
-
-[node name="Card4" parent="." instance=ExtResource("1_tcyfo")]
-position = Vector2(434, 78)
-my_suit = 3
-my_value = 6
-
-[node name="Card5" parent="." instance=ExtResource("1_tcyfo")]
-position = Vector2(624, 64)
-my_value = 11
+[node name="Card" parent="." instance=ExtResource("1_jgnmq")]
+position = Vector2(102, 210)

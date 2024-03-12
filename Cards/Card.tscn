@@ -1,30 +1,31 @@
-[gd_scene load_steps=20 format=3 uid="uid://dvpn0452oidu1"]
+[gd_scene load_steps=21 format=3 uid="uid://dvpn0452oidu1"]
 
-[ext_resource type="Script" path="res://Card/Card.gd" id="1_f7sbv"]
-[ext_resource type="Texture2D" uid="uid://c5yptrtfiw8f4" path="res://Art/CardArt/BasicCardFront.png" id="2_3bd1t"]
-[ext_resource type="Texture2D" uid="uid://c0nnoiieqmkvw" path="res://Art/CardArt/A.png" id="3_j81xx"]
-[ext_resource type="Texture2D" uid="uid://dyfux2b4dmc14" path="res://Art/CardArt/2.png" id="4_2r5k0"]
-[ext_resource type="Texture2D" uid="uid://bhmt6shq1u0fw" path="res://Art/CardArt/3.png" id="5_di7xa"]
-[ext_resource type="Texture2D" uid="uid://wmc2tuxa4ta" path="res://Art/CardArt/4.png" id="6_gbmik"]
-[ext_resource type="Texture2D" uid="uid://br4m66xkbbfhb" path="res://Art/CardArt/5.png" id="7_hcsgc"]
-[ext_resource type="Texture2D" uid="uid://65b7j70wl7aj" path="res://Art/CardArt/6.png" id="8_vfoxh"]
-[ext_resource type="Texture2D" uid="uid://rcygjeuh18vm" path="res://Art/CardArt/7.png" id="9_rw2wt"]
-[ext_resource type="Texture2D" uid="uid://cw2rcfxewdv4y" path="res://Art/CardArt/8.png" id="10_524nh"]
-[ext_resource type="Texture2D" uid="uid://dgw1sebsh3ni1" path="res://Art/CardArt/9.png" id="11_jdcvx"]
-[ext_resource type="Texture2D" uid="uid://bms7uv6o8dcn4" path="res://Art/CardArt/1.png" id="12_li34w"]
-[ext_resource type="Texture2D" uid="uid://dch6lbxyt2qmt" path="res://Art/CardArt/J.png" id="13_qn28m"]
-[ext_resource type="Texture2D" uid="uid://b4b2gi72le8hl" path="res://Art/CardArt/Q.png" id="14_7vwy6"]
-[ext_resource type="Texture2D" uid="uid://cxb15t3g0q28j" path="res://Art/CardArt/K.png" id="15_3gu8t"]
-[ext_resource type="Texture2D" uid="uid://cy8wnyjr8nl1l" path="res://Art/CardArt/Heart.png" id="16_msl27"]
-[ext_resource type="Texture2D" uid="uid://b0e5ri0c11fs3" path="res://Art/CardArt/Diamond.png" id="17_x118c"]
-[ext_resource type="Texture2D" uid="uid://b7ym6avgi5fmf" path="res://Art/CardArt/Spade.png" id="18_m7ooa"]
-[ext_resource type="Texture2D" uid="uid://kgu7b8w4vbr2" path="res://Art/CardArt/Club.png" id="19_lgika"]
+[ext_resource type="Script" path="res://Cards/Card.gd" id="1_rbxv6"]
+[ext_resource type="Texture2D" uid="uid://c5yptrtfiw8f4" path="res://Art/CardArt/BasicCardFront.png" id="2_yntag"]
+[ext_resource type="Texture2D" uid="uid://c0nnoiieqmkvw" path="res://Art/CardArt/A.png" id="3_5f830"]
+[ext_resource type="Texture2D" uid="uid://dyfux2b4dmc14" path="res://Art/CardArt/2.png" id="4_k7b1d"]
+[ext_resource type="Texture2D" uid="uid://bhmt6shq1u0fw" path="res://Art/CardArt/3.png" id="5_yj4y0"]
+[ext_resource type="Texture2D" uid="uid://wmc2tuxa4ta" path="res://Art/CardArt/4.png" id="6_528cm"]
+[ext_resource type="Texture2D" uid="uid://br4m66xkbbfhb" path="res://Art/CardArt/5.png" id="7_my2d7"]
+[ext_resource type="Texture2D" uid="uid://65b7j70wl7aj" path="res://Art/CardArt/6.png" id="8_cr6k0"]
+[ext_resource type="Texture2D" uid="uid://rcygjeuh18vm" path="res://Art/CardArt/7.png" id="9_srcvr"]
+[ext_resource type="Texture2D" uid="uid://cw2rcfxewdv4y" path="res://Art/CardArt/8.png" id="10_ucvv6"]
+[ext_resource type="Texture2D" uid="uid://dgw1sebsh3ni1" path="res://Art/CardArt/9.png" id="11_kjxbo"]
+[ext_resource type="Texture2D" uid="uid://bms7uv6o8dcn4" path="res://Art/CardArt/1.png" id="12_260s0"]
+[ext_resource type="Texture2D" uid="uid://dch6lbxyt2qmt" path="res://Art/CardArt/J.png" id="13_1xe0r"]
+[ext_resource type="Texture2D" uid="uid://b4b2gi72le8hl" path="res://Art/CardArt/Q.png" id="14_8ryu2"]
+[ext_resource type="Texture2D" uid="uid://cxb15t3g0q28j" path="res://Art/CardArt/K.png" id="15_3vaxl"]
+[ext_resource type="Texture2D" uid="uid://cchot2ydhg31o" path="res://Art/CardArt/0.png" id="16_08na3"]
+[ext_resource type="Texture2D" uid="uid://cy8wnyjr8nl1l" path="res://Art/CardArt/Heart.png" id="17_5edar"]
+[ext_resource type="Texture2D" uid="uid://b0e5ri0c11fs3" path="res://Art/CardArt/Diamond.png" id="18_d37id"]
+[ext_resource type="Texture2D" uid="uid://b7ym6avgi5fmf" path="res://Art/CardArt/Spade.png" id="19_nr0t2"]
+[ext_resource type="Texture2D" uid="uid://kgu7b8w4vbr2" path="res://Art/CardArt/Club.png" id="20_hiddl"]
 
 [node name="Card" type="Node2D"]
-script = ExtResource("1_f7sbv")
+script = ExtResource("1_rbxv6")
 
 [node name="BasicCardFront" type="Sprite2D" parent="."]
-texture = ExtResource("2_3bd1t")
+texture = ExtResource("2_yntag")
 
 [node name="Content" type="Node2D" parent="."]
 scale = Vector2(0.38005, 0.403267)
@@ -35,79 +36,85 @@ scale = Vector2(0.38005, 0.403267)
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(2.77419, 3.40466)
-texture = ExtResource("3_j81xx")
+texture = ExtResource("3_5f830")
 
 [node name="2" type="Sprite2D" parent="Content/CenterPattern"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(2.77419, 3.40466)
-texture = ExtResource("4_2r5k0")
+texture = ExtResource("4_k7b1d")
 
 [node name="3" type="Sprite2D" parent="Content/CenterPattern"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(2.77419, 3.40466)
-texture = ExtResource("5_di7xa")
+texture = ExtResource("5_yj4y0")
 
 [node name="4" type="Sprite2D" parent="Content/CenterPattern"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(2.77419, 3.40466)
-texture = ExtResource("6_gbmik")
+texture = ExtResource("6_528cm")
 
 [node name="5" type="Sprite2D" parent="Content/CenterPattern"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(2.77419, 3.40466)
-texture = ExtResource("7_hcsgc")
+texture = ExtResource("7_my2d7")
 
 [node name="6" type="Sprite2D" parent="Content/CenterPattern"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(2.77419, 3.40466)
-texture = ExtResource("8_vfoxh")
+texture = ExtResource("8_cr6k0")
 
 [node name="7" type="Sprite2D" parent="Content/CenterPattern"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(2.77419, 3.40466)
-texture = ExtResource("9_rw2wt")
+texture = ExtResource("9_srcvr")
 
 [node name="8" type="Sprite2D" parent="Content/CenterPattern"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(2.77419, 3.40466)
-texture = ExtResource("10_524nh")
+texture = ExtResource("10_ucvv6")
 
 [node name="9" type="Sprite2D" parent="Content/CenterPattern"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(2.77419, 3.40466)
-texture = ExtResource("11_jdcvx")
+texture = ExtResource("11_kjxbo")
 
 [node name="10" type="Sprite2D" parent="Content/CenterPattern"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
+position = Vector2(-23.6811, 2.47975)
 scale = Vector2(2.77419, 3.40466)
-texture = ExtResource("12_li34w")
+texture = ExtResource("12_260s0")
+
+[node name="0" type="Sprite2D" parent="Content/CenterPattern/10"]
+position = Vector2(17.0724, 0)
+scale = Vector2(1, 1.06776)
+texture = ExtResource("16_08na3")
 
 [node name="J" type="Sprite2D" parent="Content/CenterPattern"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(2.77419, 3.40466)
-texture = ExtResource("13_qn28m")
+texture = ExtResource("13_1xe0r")
 
 [node name="Q" type="Sprite2D" parent="Content/CenterPattern"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(2.77419, 3.40466)
-texture = ExtResource("14_7vwy6")
+texture = ExtResource("14_8ryu2")
 
 [node name="K" type="Sprite2D" parent="Content/CenterPattern"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(2.77419, 3.40466)
-texture = ExtResource("15_3gu8t")
+texture = ExtResource("15_3vaxl")
 
 [node name="TopLeftCorner" type="Node2D" parent="Content"]
 position = Vector2(-55.256, -89.2709)
@@ -116,99 +123,105 @@ position = Vector2(-55.256, -89.2709)
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("3_j81xx")
+texture = ExtResource("3_5f830")
 
 [node name="2" type="Sprite2D" parent="Content/TopLeftCorner"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("4_2r5k0")
+texture = ExtResource("4_k7b1d")
 
 [node name="3" type="Sprite2D" parent="Content/TopLeftCorner"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("5_di7xa")
+texture = ExtResource("5_yj4y0")
 
 [node name="4" type="Sprite2D" parent="Content/TopLeftCorner"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("6_gbmik")
+texture = ExtResource("6_528cm")
 
 [node name="5" type="Sprite2D" parent="Content/TopLeftCorner"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("7_hcsgc")
+texture = ExtResource("7_my2d7")
 
 [node name="6" type="Sprite2D" parent="Content/TopLeftCorner"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("8_vfoxh")
+texture = ExtResource("8_cr6k0")
 
 [node name="7" type="Sprite2D" parent="Content/TopLeftCorner"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("9_rw2wt")
+texture = ExtResource("9_srcvr")
 
 [node name="8" type="Sprite2D" parent="Content/TopLeftCorner"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("10_524nh")
+texture = ExtResource("10_ucvv6")
 
 [node name="9" type="Sprite2D" parent="Content/TopLeftCorner"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("11_jdcvx")
+texture = ExtResource("11_kjxbo")
 
 [node name="10" type="Sprite2D" parent="Content/TopLeftCorner"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
+position = Vector2(-7.89358, 0)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("12_li34w")
+texture = ExtResource("12_260s0")
+
+[node name="0" type="Sprite2D" parent="Content/TopLeftCorner/10"]
+position = Vector2(12.8056, -2.28882e-05)
+scale = Vector2(0.712558, 1.00974)
+texture = ExtResource("16_08na3")
 
 [node name="J" type="Sprite2D" parent="Content/TopLeftCorner"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("13_qn28m")
+texture = ExtResource("13_1xe0r")
 
 [node name="Q" type="Sprite2D" parent="Content/TopLeftCorner"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("14_7vwy6")
+texture = ExtResource("14_8ryu2")
 
 [node name="K" type="Sprite2D" parent="Content/TopLeftCorner"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("15_3gu8t")
+texture = ExtResource("15_3vaxl")
 
 [node name="Heart" type="Sprite2D" parent="Content/TopLeftCorner"]
 visible = false
 position = Vector2(26.3124, 7.62939e-06)
-texture = ExtResource("16_msl27")
+texture = ExtResource("17_5edar")
 
 [node name="Diamond" type="Sprite2D" parent="Content/TopLeftCorner"]
 visible = false
 position = Vector2(23.6811, 7.62939e-06)
-texture = ExtResource("17_x118c")
+texture = ExtResource("18_d37id")
 
 [node name="Spade" type="Sprite2D" parent="Content/TopLeftCorner"]
 visible = false
 position = Vector2(23.6811, -2.47974)
-texture = ExtResource("18_m7ooa")
+texture = ExtResource("19_nr0t2")
 
 [node name="Club" type="Sprite2D" parent="Content/TopLeftCorner"]
 visible = false
 position = Vector2(26.3124, -2.47974)
-texture = ExtResource("19_lgika")
+texture = ExtResource("20_hiddl")
 
 [node name="BottomRightCorner" type="Node2D" parent="Content"]
 position = Vector2(34.2061, 89.2709)
@@ -217,96 +230,103 @@ position = Vector2(34.2061, 89.2709)
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("3_j81xx")
+texture = ExtResource("3_5f830")
 
 [node name="2" type="Sprite2D" parent="Content/BottomRightCorner"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("4_2r5k0")
+texture = ExtResource("4_k7b1d")
 
 [node name="3" type="Sprite2D" parent="Content/BottomRightCorner"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("5_di7xa")
+texture = ExtResource("5_yj4y0")
 
 [node name="4" type="Sprite2D" parent="Content/BottomRightCorner"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("6_gbmik")
+texture = ExtResource("6_528cm")
 
 [node name="5" type="Sprite2D" parent="Content/BottomRightCorner"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("7_hcsgc")
+texture = ExtResource("7_my2d7")
 
 [node name="6" type="Sprite2D" parent="Content/BottomRightCorner"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("8_vfoxh")
+texture = ExtResource("8_cr6k0")
 
 [node name="7" type="Sprite2D" parent="Content/BottomRightCorner"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("9_rw2wt")
+texture = ExtResource("9_srcvr")
 
 [node name="8" type="Sprite2D" parent="Content/BottomRightCorner"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("10_524nh")
+texture = ExtResource("10_ucvv6")
 
 [node name="9" type="Sprite2D" parent="Content/BottomRightCorner"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("11_jdcvx")
+texture = ExtResource("11_kjxbo")
 
 [node name="10" type="Sprite2D" parent="Content/BottomRightCorner"]
 visible = false
-modulate = Color(0.92549, 0.596078, 0.0313726, 1)
+modulate = Color(0, 0.572549, 0.662745, 1)
+position = Vector2(-7.89377, -1.52588e-05)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("12_li34w")
+texture = ExtResource("12_260s0")
+
+[node name="0" type="Sprite2D" parent="Content/BottomRightCorner/10"]
+position = Vector2(12.8056, -2.28882e-05)
+scale = Vector2(0.712558, 1.00974)
+texture = ExtResource("16_08na3")
 
 [node name="J" type="Sprite2D" parent="Content/BottomRightCorner"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("13_qn28m")
+texture = ExtResource("13_1xe0r")
 
 [node name="Q" type="Sprite2D" parent="Content/BottomRightCorner"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("14_7vwy6")
+texture = ExtResource("14_8ryu2")
 
 [node name="K" type="Sprite2D" parent="Content/BottomRightCorner"]
 visible = false
 modulate = Color(0.92549, 0.596078, 0.0313726, 1)
 scale = Vector2(1.02737, 1.01865)
-texture = ExtResource("15_3gu8t")
+texture = ExtResource("15_3vaxl")
 
 [node name="Heart" type="Sprite2D" parent="Content/BottomRightCorner"]
 visible = false
 position = Vector2(26.3124, -2.47974)
-texture = ExtResource("16_msl27")
+texture = ExtResource("17_5edar")
 
 [node name="Diamond" type="Sprite2D" parent="Content/BottomRightCorner"]
 visible = false
 position = Vector2(23.6811, -2.47975)
-texture = ExtResource("17_x118c")
+texture = ExtResource("18_d37id")
 
 [node name="Spade" type="Sprite2D" parent="Content/BottomRightCorner"]
 visible = false
+modulate = Color(0.222045, 0.840005, 0.790501, 1)
 position = Vector2(23.6811, -2.47975)
-texture = ExtResource("18_m7ooa")
+texture = ExtResource("19_nr0t2")
 
 [node name="Club" type="Sprite2D" parent="Content/BottomRightCorner"]
 visible = false
 position = Vector2(26.3124, -2.47974)
-texture = ExtResource("19_lgika")
+texture = ExtResource("20_hiddl")

@@ -1,8 +1,9 @@
 extends Node2D
-class_name PlayingCard
+class_name Card
 
 enum Suits  { Hearts, Diamonds, Clubs, Spades, }
 enum Values { Ace, One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, }
+signal card_clicked
 
 var colors = {
 	Suits.Hearts: Color("ec0808"), 
@@ -35,6 +36,8 @@ var symbols = {
 
 @export var my_suit : Suits = Suits.Hearts
 @export var my_value: Values = Values.Ace
+var default_width: int
+
 var current_center_pattern
 var current_top_left_corner_value
 var current_top_left_corner_suit
@@ -49,17 +52,17 @@ var center_pattern: Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	print("new card")
 	content = find_child("Content", false)
 	top_left_corner = content.find_child("TopLeftCorner", false)
 	bottom_right_corner = content.find_child("BottomRightCorner", false)
 	center_pattern = content.find_child("CenterPattern", false)
 	
-	current_center_pattern = center_pattern.find_child(patterns[my_value])
-	current_top_left_corner_value = top_left_corner.find_child(patterns[my_value])
-	current_top_left_corner_suit = top_left_corner.find_child(symbols[my_suit])
-	current_bottom_right_corner_value = bottom_right_corner.find_child(patterns[my_value])
-	current_bottom_right_corner_suit = bottom_right_corner.find_child(symbols[my_suit])
-	
+	current_center_pattern = center_pattern.find_child(patterns[my_value], false)
+	current_top_left_corner_value = top_left_corner.find_child(patterns[my_value], false)
+	current_top_left_corner_suit = top_left_corner.find_child(symbols[my_suit], false)
+	current_bottom_right_corner_value = bottom_right_corner.find_child(patterns[my_value], false)
+	current_bottom_right_corner_suit = bottom_right_corner.find_child(symbols[my_suit], false)
 	
 	redraw()
 	pass # Replace with function body.
@@ -104,3 +107,9 @@ func redraw():
 	current_top_left_corner_value.modulate = colors[my_suit]
 	current_bottom_right_corner_value.modulate = colors[my_suit]
 	pass
+
+func get_width():
+	return find_child("BasicCardFront").texture.get_width()
+
+func get_height():
+	return find_child("BasicCardFront").texture.get_height()
