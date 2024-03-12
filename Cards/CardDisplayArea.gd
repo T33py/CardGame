@@ -38,10 +38,16 @@ func layout_cards():
 		return
 	
 	var width = texture.get_width()
-	var left_border = position.x - (width / 2) + (width * 0.1)
-	var dist = texture.get_width() - (width * 0.1)
+	var left_border = position.x - (width / 2) + (width * 0.05)
+	var dist = texture.get_width() - (width * 0.1) - (cards[0].get_width() / 2)
 	var interval = dist / segments
+	
 	for i in range(segments):
 		var card = cards[i]
+		var target_height = texture.get_height() * scale.y * 0.9
+		var card_height = card.get_height()
+		
+		card.scale *= target_height / card_height
+		
 		card.position = Vector2(left_border + (card.get_width() / 2) + (interval * i+1), 0)
 	pass

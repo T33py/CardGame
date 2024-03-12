@@ -109,7 +109,7 @@ func redraw():
 	pass
 
 func get_width():
-	return find_child("BasicCardFront").texture.get_width()
+	return find_child("BasicCardFront").texture.get_width() * scale.x
 
 func get_height():
-	return find_child("BasicCardFront").texture.get_height()
+	return find_child("BasicCardFront").texture.get_height() * scale.y

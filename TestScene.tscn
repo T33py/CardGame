@@ -7,12 +7,12 @@
 [node name="TestScene" type="Node2D"]
 
 [node name="Hand" parent="." node_paths=PackedStringArray("current_deck") instance=ExtResource("2_dh85x")]
-position = Vector2(254, 506)
-scale = Vector2(0.216207, 0.0993241)
+position = Vector2(428, 541)
+scale = Vector2(0.362737, 0.17562)
 current_deck = NodePath("../Deck")
 
 [node name="Deck" parent="." instance=ExtResource("3_h1md0")]
-position = Vector2(574, 381)
+position = Vector2(793, 177)
 
 [node name="Card" parent="." instance=ExtResource("1_jgnmq")]
 position = Vector2(102, 210)
