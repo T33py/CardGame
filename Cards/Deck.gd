@@ -23,7 +23,7 @@ func _ready():
 func _process(delta):
 	pass
 
-func draw_random():
+func draw_random() -> Card:
 	var idx = random.randi_range(0, len(cards)-1)
 	var c = cards[idx]
 	cards.remove_at(idx)

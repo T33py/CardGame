@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dvpn0452oidu1"]
+[gd_scene load_steps=22 format=3 uid="uid://dvpn0452oidu1"]
 
 [ext_resource type="Script" path="res://Cards/Card.gd" id="1_rbxv6"]
 [ext_resource type="Texture2D" uid="uid://c5yptrtfiw8f4" path="res://Art/CardArt/BasicCardFront.png" id="2_yntag"]
@@ -20,6 +20,9 @@
 [ext_resource type="Texture2D" uid="uid://b0e5ri0c11fs3" path="res://Art/CardArt/Diamond.png" id="18_d37id"]
 [ext_resource type="Texture2D" uid="uid://b7ym6avgi5fmf" path="res://Art/CardArt/Spade.png" id="19_nr0t2"]
 [ext_resource type="Texture2D" uid="uid://kgu7b8w4vbr2" path="res://Art/CardArt/Club.png" id="20_hiddl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_86r2k"]
+size = Vector2(60, 90)
 
 [node name="Card" type="Node2D"]
 script = ExtResource("1_rbxv6")
@@ -330,3 +333,12 @@ texture = ExtResource("19_nr0t2")
 visible = false
 position = Vector2(26.3124, -2.47974)
 texture = ExtResource("20_hiddl")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_86r2k")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

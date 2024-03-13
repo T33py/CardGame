@@ -7,9 +7,22 @@
 [node name="TestScene" type="Node2D"]
 
 [node name="Hand" parent="." node_paths=PackedStringArray("current_deck") instance=ExtResource("2_dh85x")]
-position = Vector2(428, 541)
-scale = Vector2(0.362737, 0.17562)
+position = Vector2(483, 563)
+scale = Vector2(0.423909, 0.221688)
 current_deck = NodePath("../Deck")
+selected_card_y_offset = 200
+
+[node name="Hand2" parent="." node_paths=PackedStringArray("current_deck") instance=ExtResource("2_dh85x")]
+position = Vector2(494, 305)
+scale = Vector2(0.423909, 0.170633)
+current_deck = NodePath("../Deck")
+selected_card_y_offset = 200
+
+[node name="Hand3" parent="." node_paths=PackedStringArray("current_deck") instance=ExtResource("2_dh85x")]
+position = Vector2(496, 104)
+scale = Vector2(0.423909, 0.170633)
+current_deck = NodePath("../Deck")
+selected_card_y_offset = 200
 
 [node name="Deck" parent="." instance=ExtResource("3_h1md0")]
 position = Vector2(793, 177)

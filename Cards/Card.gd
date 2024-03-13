@@ -3,7 +3,9 @@ class_name Card
 
 enum Suits  { Hearts, Diamonds, Clubs, Spades, }
 enum Values { Ace, One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, }
-signal card_clicked
+signal card_clicked(card: Card)
+signal mouse_hovers(card: Card)
+signal mouse_stopped_hovering(card: Card)
 
 var colors = {
 	Suits.Hearts: Color("ec0808"), 
@@ -34,9 +36,12 @@ var symbols = {
 	Suits.Spades: "Spade",
 }
 
+var in_focus = false
+var focus_scale = 1.05
+var scale_before_focused = 1
+
 @export var my_suit : Suits = Suits.Hearts
 @export var my_value: Values = Values.Ace
-var default_width: int
 
 var current_center_pattern
 var current_top_left_corner_value
@@ -113,3 +118,35 @@ func get_width():
 
 func get_height():
 	return find_child("BasicCardFront").texture.get_height() * scale.y
+
+
+func _on_area_2d_input_event(viewport, event, shape_idx):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			card_clicked.emit(self)
+			print ("Clicked: " + str(self))
+	pass
+
+func change_focused(is_focus: bool):
+	if in_focus == is_focus:
+		return
+	in_focus = is_focus
+	if in_focus:
+		scale_before_focused = scale
+		scale *= focus_scale
+	else:
+		scale = scale_before_focused
+	pass
+
+
+func _on_area_2d_mouse_entered():
+	mouse_hovers.emit(self)
+	pass # Replace with function body.
+
+
+func _on_area_2d_mouse_exited():
+	mouse_stopped_hovering.emit(self)
+	pass # Replace with function body.
+
+func _to_string():
+	return str(patterns[my_value]) + " of " + str(symbols[my_suit])
