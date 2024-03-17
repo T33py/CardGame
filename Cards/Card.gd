@@ -40,6 +40,12 @@ var in_focus = false
 var focus_scale = 1.05
 var scale_before_focused = 1
 
+var may_be_dragged = false
+var user_attempts_to_drag = false
+var end_of_drag_return_position
+var not_click_delay = 0.1
+var not_click_timer = 0
+
 @export var my_suit : Suits = Suits.Hearts
 @export var my_value: Values = Values.Ace
 
@@ -58,6 +64,7 @@ var center_pattern: Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print("new card")
+	end_of_drag_return_position = position
 	content = find_child("Content", false)
 	top_left_corner = content.find_child("TopLeftCorner", false)
 	bottom_right_corner = content.find_child("BottomRightCorner", false)
@@ -77,6 +84,11 @@ func _ready():
 func _process(delta):
 	if suit_or_value_changed:
 		redraw()
+		
+	if may_be_dragged:
+		not_click_timer += delta
+		if not_click_timer >= not_click_delay:
+			global_position = get_global_mouse_position()
 	pass
 
 func set_suit(suit: Suits):
@@ -123,8 +135,15 @@ func get_height():
 func _on_area_2d_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			card_clicked.emit(self)
 			print ("Clicked: " + str(self))
+			card_clicked.emit(self)
+			# make shure we emit the card_clicked signal to allow the owner of this card to decide whether it should be dragged
+			if not may_be_dragged:
+				end_of_drag_return_position = global_position
+				may_be_dragged = true
+		if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+			end_of_being_dragged()
+			print("released")
 	pass
 
 func change_focused(is_focus: bool):
@@ -139,6 +158,15 @@ func change_focused(is_focus: bool):
 	pass
 
 
+func end_of_being_dragged():
+	if not may_be_dragged:
+		return
+	
+	may_be_dragged = false
+	global_position = end_of_drag_return_position
+	not_click_timer = 0
+	pass
+
 func _on_area_2d_mouse_entered():
 	mouse_hovers.emit(self)
 	pass # Replace with function body.
@@ -146,6 +174,7 @@ func _on_area_2d_mouse_entered():
 
 func _on_area_2d_mouse_exited():
 	mouse_stopped_hovering.emit(self)
+#	end_of_being_dragged()
 	pass # Replace with function body.
 
 func _to_string():

@@ -23,7 +23,7 @@ func _ready():
 func _process(delta):
 	if draw_card:
 		draw_random_card()
-	if len(display_area.cards) < 10:
+	if len(display_area.cards) < 11:
 		draw_card = true
 	pass
 	
