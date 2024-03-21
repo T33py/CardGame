@@ -24,6 +24,7 @@ func remove_card(card: Card):
 	for i in range(len(cards)):
 		if cards[i] == card:
 			cards.remove_at(i)
+			break
 	layout_cards()
 	pass
 
@@ -33,9 +34,9 @@ func layout_cards():
 	# if its trivial to organize
 	if segments == 0:
 		return
-	if segments == 1:
-		cards[0].position = self.position
-		return
+#	if segments == 1:
+#		cards[0].position = self.position
+#		return
 	
 	var width = texture.get_width()
 	var left_border = position.x - (width / 2) # + (width * 0.05)
@@ -59,6 +60,6 @@ func layout_cards():
 		var offset = left_border + interval * i+1 + interval * 0.5
 		card.position = Vector2(offset, 0)
 		
-		print("placing card " + str(i) + ": " + str(card) + " at " + str(offset) + " based on adjustment " + str(adj) + ", interval: " + str(interval))
+#		print("placing card " + str(i) + ": " + str(card) + " at " + str(offset) + " based on adjustment " + str(adj) + ", interval: " + str(interval))
 		
 	pass

@@ -178,4 +178,4 @@ func _on_area_2d_mouse_exited():
 	pass # Replace with function body.
 
 func _to_string():
-	return str(patterns[my_value]) + " of " + str(symbols[my_suit])
+	return str(patterns[my_value]) + " of " + str(symbols[my_suit]) + "s"

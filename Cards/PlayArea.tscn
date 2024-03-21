@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://bsj58duurpo3t"]
+
+[ext_resource type="Script" path="res://Cards/PlayArea.gd" id="1_4gv8r"]
+[ext_resource type="Texture2D" uid="uid://8ujeu6jiqytt" path="res://Art/UIArt/BG.png" id="2_qy15m"]
+[ext_resource type="Script" path="res://Cards/CardDisplayArea.gd" id="3_8jc4v"]
+
+[node name="PlayArea" type="Node2D"]
+script = ExtResource("1_4gv8r")
+
+[node name="DisplayArea" type="Sprite2D" parent="."]
+modulate = Color(0.14902, 0.14902, 0.14902, 0.443137)
+texture = ExtResource("2_qy15m")
+script = ExtResource("3_8jc4v")

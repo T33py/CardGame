@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://8gp6cu7uxu77"]
+
+[ext_resource type="Script" path="res://Util/HandPlayedTracker.gd" id="1_7wkwv"]
+
+[node name="HandPlayedTracker" type="Node2D"]
+script = ExtResource("1_7wkwv")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+text = "Some text"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0

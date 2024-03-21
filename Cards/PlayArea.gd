@@ -1,17 +1,13 @@
 extends Node2D
-class_name Hand
+class_name PlayArea
 
 var display_area: CardDisplayArea
 
-@export var current_deck: Deck
-@export var play_area: PlayArea
-@export var base_handsize = 7
+@export var number_of_cards_to_allow = 5
 @export var selected_card_y_offset = 100
 var cards: Array[Card] = []
 var cards_being_hovered: Array[Card] = []
 var selected_card: Card = null
-
-var draw_card = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,29 +18,22 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if draw_card:
-		draw_random_card()
-	if len(display_area.cards) < base_handsize:
-		draw_card = true
 	pass
 	
-func draw_random_card():
-	if current_deck != null:
-		var card: Card = current_deck.draw_random()
-		cards.append(card)
-		display_area.place_card(card)
-		card.connect("mouse_hovers", _player_hovers_over_card)
-		card.connect("mouse_stopped_hovering", _player_no_longer_hovers_over_card)
-		card.connect("card_clicked", _select_card)
-		
-	draw_card = false
+func play_card(card: Card):
+	if len(cards) >= number_of_cards_to_allow:
+		return false
+	cards.append(card)
+	display_area.place_card(card)
+	card.connect("mouse_hovers", _player_hovers_over_card)
+	card.connect("mouse_stopped_hovering", _player_no_longer_hovers_over_card)
+	card.connect("card_clicked", _select_card)
+	return true
 
 # handles the "card clicked" signal
 func _select_card(card: Card):
-	print("select " + str(card))
 	if selected_card == null:
 		selected_card = card
-		print("selected " + str(card))
 		card.position.y -= selected_card_y_offset
 		return
 	
@@ -58,7 +47,6 @@ func _select_card(card: Card):
 		return
 		
 	if selected_card == card:
-		print(str(selected_card) + " no longer selected")
 		selected_card = null
 		card.position.y += selected_card_y_offset
 		return
@@ -91,14 +79,14 @@ func handle_multihover():
 	pass
 
 func _player_hovers_over_card(card: Card):
-#	print("player hovers " + str(card))
+	print("player hovers " + str(card))
 	if card not in cards_being_hovered:
 		cards_being_hovered.append(card)
 	handle_multihover()
 	pass
 	
 func _player_no_longer_hovers_over_card(card: Card):
-#	print("player no longer hovers " + str(card))
+	print("player no longer hovers " + str(card))
 	for c in range(len(cards_being_hovered)):
 		if card == cards_being_hovered[c]:
 			cards_being_hovered.remove_at(c)
@@ -107,28 +95,3 @@ func _player_no_longer_hovers_over_card(card: Card):
 	handle_multihover()
 	pass
 	
-
-
-func _on_play_card_button_pressed():
-	play_card(null)
-	pass # Replace with function body.
-	
-func play_card(card: Card):
-	print("Play card from hand")
-	if card == null:
-		card = selected_card
-	print("  " + str(card))
-	if card == null:
-		return
-		
-	if play_area.play_card(card):
-		selected_card = null
-		for c in range(len(cards)):
-			if cards[c] == card:
-				cards.remove_at(c)
-				break
-		card.disconnect("mouse_hovers", _player_hovers_over_card)
-		card.disconnect("mouse_stopped_hovering", _player_no_longer_hovers_over_card)
-		card.disconnect("card_clicked", _select_card)
-		display_area.remove_card(card)
-	pass
