@@ -43,7 +43,7 @@ var scale_before_focused = 1
 var may_be_dragged = false
 var user_attempts_to_drag = false
 var end_of_drag_return_position
-var not_click_delay = 0.1
+var not_click_delay = 0.15
 var not_click_timer = 0
 
 @export var my_suit : Suits = Suits.Hearts

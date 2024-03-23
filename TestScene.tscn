@@ -1,6 +1,5 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1bk2kdlqmaqi"]
+[gd_scene load_steps=5 format=3 uid="uid://d1bk2kdlqmaqi"]
 
-[ext_resource type="PackedScene" uid="uid://dvpn0452oidu1" path="res://Cards/Card.tscn" id="1_jgnmq"]
 [ext_resource type="PackedScene" uid="uid://8mr51aludca3" path="res://Cards/Hand.tscn" id="2_dh85x"]
 [ext_resource type="PackedScene" uid="uid://diaxixmrj6t2t" path="res://Cards/Deck.tscn" id="3_h1md0"]
 [ext_resource type="PackedScene" uid="uid://bsj58duurpo3t" path="res://Cards/PlayArea.tscn" id="4_wl3in"]
@@ -8,18 +7,15 @@
 
 [node name="TestScene" type="Node2D"]
 
-[node name="Hand" parent="." node_paths=PackedStringArray("current_deck", "play_area") instance=ExtResource("2_dh85x")]
+[node name="Hand" parent="." node_paths=PackedStringArray("deck", "play_area") instance=ExtResource("2_dh85x")]
 position = Vector2(483, 563)
 scale = Vector2(0.419673, 0.108841)
-current_deck = NodePath("../Deck")
+deck = NodePath("../Deck")
 play_area = NodePath("../PlayArea")
 selected_card_y_offset = 200
 
 [node name="Deck" parent="." instance=ExtResource("3_h1md0")]
-position = Vector2(793, 177)
-
-[node name="Card" parent="." instance=ExtResource("1_jgnmq")]
-position = Vector2(102, 210)
+position = Vector2(1150, 240)
 
 [node name="PlayArea" parent="." instance=ExtResource("4_wl3in")]
 position = Vector2(490, 370)
@@ -33,8 +29,17 @@ offset_bottom = 546.0
 scale = Vector2(1.43374, 1.7244)
 text = "Play card"
 
+[node name="DiscardCardButton" type="Button" parent="."]
+offset_left = 939.0
+offset_top = 602.0
+offset_right = 1006.0
+offset_bottom = 633.0
+scale = Vector2(1.43374, 1.7244)
+text = "Discard"
+
 [node name="HandPlayedTracker" parent="." node_paths=PackedStringArray("play_area") instance=ExtResource("5_tgm0c")]
 position = Vector2(905, 361)
 play_area = NodePath("../PlayArea")
 
 [connection signal="pressed" from="PlayCardButton" to="Hand" method="_on_play_card_button_pressed"]
+[connection signal="pressed" from="DiscardCardButton" to="Hand" method="_on_discard_card_button_pressed"]

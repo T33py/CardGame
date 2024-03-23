@@ -45,7 +45,7 @@ func figure_out_played_hand():
 		else:
 			rank_count[card.my_value] = 1
 	
-	print(rank_count)
+#	print(rank_count)
 	for rank in rank_count:
 		if rank_count[rank] == 2:
 			hand = "pair of " + play_area.cards[0].patterns[rank] + "s"

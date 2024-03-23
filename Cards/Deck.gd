@@ -9,12 +9,19 @@ enum Defaults { Default52, }
 @export var default: Defaults = Defaults.Default52
 var all_cards: Array[Card] = []
 var cards: Array[Card] = []
+var cards_display: CardDisplayArea
 var discards: Array[Card] = []
+var discards_display:CardDisplayArea
 
 var random = RandomNumberGenerator.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	cards_display = find_child("DeckDisplayArea", false)
+	cards_display.card_distance_modifier = 0.001
+	discards_display = find_child("DiscardsDisplayArea", false)
+	discards_display.card_distance_modifier = 0.001
+	
 	setup_default_deck()
 	pass # Replace with function body.
 
@@ -25,10 +32,26 @@ func _process(delta):
 
 func draw_random() -> Card:
 	var idx = random.randi_range(0, len(cards)-1)
-	var c = cards[idx]
+	var card = cards[idx]
 	cards.remove_at(idx)
-	return c
+	cards_display.remove_card(card)
+	return card
+	
+func discard(card: Card):
+	if card not in all_cards:
+		return false
+	discards.append(card)
+	discards_display.place_card(card)
+#	redo_card_positions()
+	return true
 
+func add_card(card: Card):
+	if card == null:
+		return
+	all_cards.append(card)
+	cards.append(card)
+	cards_display.place_card(card)
+	pass
 
 func setup_default_deck():
 	if default != null:
@@ -42,20 +65,14 @@ func setup_deck(specific_deck: Defaults):
 	pass
 
 func setup_default52():
-	var x = 1
-	var y = 1
 	for suit in suits:
 		for value in values:
-			var c  = card_template.instantiate() as Card
-			add_child(c)
-			c.visible = true
+			var card  = card_template.instantiate() as Card
+			add_child(card)
+			card.visible = true
+			print(str(card))
+			add_card(card)
 			print("Making: " + str(value) + " of " + str(suit))
-			c.set_suit(suit)
-			c.set_value(value)
-			all_cards.append(c)
-			cards.append(c)
-			c.position = Vector2(x*15, y*15)
-			x += 1
-		y += 1
-		x = 1
-	
+			card.set_suit(suit)
+			card.set_value(value)
+	pass

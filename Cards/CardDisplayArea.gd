@@ -3,6 +3,7 @@ class_name CardDisplayArea
 
 
 var cards: Array[Card] = []
+var card_distance_modifier = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -39,27 +40,19 @@ func layout_cards():
 #		return
 	
 	var width = texture.get_width()
-	var left_border = position.x - (width / 2) # + (width * 0.05)
-	var dist = texture.get_width() # - (width * 0.1) - (cards[0].get_width() / 2)
+	var left_border = position.x - (width / 2)
+	var dist = texture.get_width()
 	var interval = dist / segments
 	
 	for i in range(segments):
 		var card = cards[i]
 		var target_height = texture.get_height() * scale.y * 1.05
 		var card_height = card.get_height()
-		
 		card.scale *= target_height / card_height
 		
-#		card.position = Vector2(left_border + (card.get_width() / 2) + (interval * 1.5 * i+1), 0)
-		var adj = 0
-		if i < segments/2:
-			adj = 0.5
-		elif i > segments/2:
-			adj = -0.5
 		
-		var offset = left_border + interval * i+1 + interval * 0.5
-		card.position = Vector2(offset, 0)
+		var offset = left_border + ((interval * i+1 + interval * 0.5) * card_distance_modifier)
+		card.position = Vector2(offset, position.y)
 		
-#		print("placing card " + str(i) + ": " + str(card) + " at " + str(offset) + " based on adjustment " + str(adj) + ", interval: " + str(interval))
 		
 	pass

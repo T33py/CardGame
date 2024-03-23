@@ -3,7 +3,7 @@ class_name Hand
 
 var display_area: CardDisplayArea
 
-@export var current_deck: Deck
+@export var deck: Deck
 @export var play_area: PlayArea
 @export var base_handsize = 7
 @export var selected_card_y_offset = 100
@@ -29,8 +29,9 @@ func _process(delta):
 	pass
 	
 func draw_random_card():
-	if current_deck != null:
-		var card: Card = current_deck.draw_random()
+	if deck != null:
+#		print("draw")
+		var card: Card = deck.draw_random()
 		cards.append(card)
 		display_area.place_card(card)
 		card.connect("mouse_hovers", _player_hovers_over_card)
@@ -110,25 +111,48 @@ func _player_no_longer_hovers_over_card(card: Card):
 
 
 func _on_play_card_button_pressed():
-	play_card(null)
+	play_card()
 	pass # Replace with function body.
+
+
+func _on_discard_card_button_pressed():
+	discard_card()
+	pass # Replace with function body.
+
 	
-func play_card(card: Card):
-	print("Play card from hand")
+func play_card(card: Card = null):
 	if card == null:
 		card = selected_card
-	print("  " + str(card))
 	if card == null:
 		return
+	print("Play card from hand")
+	print("  " + str(card))
 		
 	if play_area.play_card(card):
 		selected_card = null
-		for c in range(len(cards)):
-			if cards[c] == card:
-				cards.remove_at(c)
-				break
-		card.disconnect("mouse_hovers", _player_hovers_over_card)
-		card.disconnect("mouse_stopped_hovering", _player_no_longer_hovers_over_card)
-		card.disconnect("card_clicked", _select_card)
-		display_area.remove_card(card)
+		disconnect_card(card)
+	pass
+
+func discard_card(card: Card = null):
+	if card == null:
+		card = selected_card
+	if card == null:
+		return
+	print("discard card from hand")
+	print("  " + str(card))
+		
+	if deck.discard(card):
+		selected_card = null
+		disconnect_card(card)
+	pass
+	
+func disconnect_card(card: Card):
+	for c in range(len(cards)):
+		if cards[c] == card:
+			cards.remove_at(c)
+			break
+	card.disconnect("mouse_hovers", _player_hovers_over_card)
+	card.disconnect("mouse_stopped_hovering", _player_no_longer_hovers_over_card)
+	card.disconnect("card_clicked", _select_card)
+	display_area.remove_card(card)
 	pass
