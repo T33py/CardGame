@@ -7,6 +7,10 @@
 
 [node name="TestScene" type="Node2D"]
 
+[node name="Deck" parent="." instance=ExtResource("3_h1md0")]
+position = Vector2(1111, 414)
+scale = Vector2(0.0213682, 0.0851462)
+
 [node name="Hand" parent="." node_paths=PackedStringArray("deck", "play_area") instance=ExtResource("2_dh85x")]
 position = Vector2(483, 563)
 scale = Vector2(0.419673, 0.108841)
@@ -14,12 +18,9 @@ deck = NodePath("../Deck")
 play_area = NodePath("../PlayArea")
 selected_card_y_offset = 200
 
-[node name="Deck" parent="." instance=ExtResource("3_h1md0")]
-position = Vector2(1150, 240)
-
 [node name="PlayArea" parent="." instance=ExtResource("4_wl3in")]
 position = Vector2(490, 370)
-scale = Vector2(0.413689, 0.160103)
+scale = Vector2(0.424793, 0.174878)
 
 [node name="PlayCardButton" type="Button" parent="."]
 offset_left = 941.0

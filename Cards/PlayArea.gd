@@ -27,31 +27,8 @@ func play_card(card: Card):
 	display_area.place_card(card)
 	card.connect("mouse_hovers", _player_hovers_over_card)
 	card.connect("mouse_stopped_hovering", _player_no_longer_hovers_over_card)
-	card.connect("card_clicked", _select_card)
 	return true
 
-# handles the "card clicked" signal
-func _select_card(card: Card):
-	if selected_card == null:
-		selected_card = card
-		card.position.y -= selected_card_y_offset
-		return
-	
-	if not card.in_focus:
-		return
-		
-	if selected_card != card:
-		selected_card.position.y += selected_card_y_offset
-		selected_card = card
-		card.position.y -= selected_card_y_offset
-		return
-		
-	if selected_card == card:
-		selected_card = null
-		card.position.y += selected_card_y_offset
-		return
-	
-	pass
 
 # handles the mouse hovering multiple cards
 func handle_multihover():

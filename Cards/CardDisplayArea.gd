@@ -1,9 +1,9 @@
 extends Sprite2D
 class_name CardDisplayArea
 
-
 var cards: Array[Card] = []
 var card_distance_modifier = 1
+var card_distance_offset = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -43,15 +43,15 @@ func layout_cards():
 	var left_border = position.x - (width / 2)
 	var dist = texture.get_width()
 	var interval = dist / segments
+	var target_height = texture.get_height() * scale.y * 1.05
 	
 	for i in range(segments):
 		var card = cards[i]
-		var target_height = texture.get_height() * scale.y * 1.05
 		var card_height = card.get_height()
 		card.scale *= target_height / card_height
 		
-		
-		var offset = left_border + ((interval * i+1 + interval * 0.5) * card_distance_modifier)
+		# place card at left border in the middle of its interval at interval 'i'
+		var offset = left_border + ((interval * 0.5 + interval * i) * card_distance_modifier) + (card_distance_offset/scale.x * i)
 		card.position = Vector2(offset, position.y)
 		
 		

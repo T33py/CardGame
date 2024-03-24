@@ -1,6 +1,8 @@
 extends Node2D
 class_name Deck
 
+signal deck_empty
+
 var suits = [Card.Suits.Hearts, Card.Suits.Diamonds, Card.Suits.Clubs, Card.Suits.Spades]
 var values = [Card.Values.Ace, Card.Values.Two, Card.Values.Three, Card.Values.Four, Card.Values.Five, Card.Values.Six, Card.Values.Seven, Card.Values.Eight, Card.Values.Nine, Card.Values.Ten, Card.Values.Jack, Card.Values.Queen, Card.Values.King, ]
 enum Defaults { Default52, }
@@ -18,9 +20,11 @@ var random = RandomNumberGenerator.new()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	cards_display = find_child("DeckDisplayArea", false)
-	cards_display.card_distance_modifier = 0.001
+	cards_display.card_distance_modifier = 0
+	cards_display.card_distance_offset = 5
 	discards_display = find_child("DiscardsDisplayArea", false)
-	discards_display.card_distance_modifier = 0.001
+	discards_display.card_distance_modifier = 0
+	discards_display.card_distance_offset = 5
 	
 	setup_default_deck()
 	pass # Replace with function body.
@@ -31,6 +35,10 @@ func _process(delta):
 	pass
 
 func draw_random() -> Card:
+	if len(cards) == 0:
+		deck_empty.emit()
+		return null
+		
 	var idx = random.randi_range(0, len(cards)-1)
 	var card = cards[idx]
 	cards.remove_at(idx)
@@ -69,9 +77,11 @@ func setup_default52():
 		for value in values:
 			var card  = card_template.instantiate() as Card
 			add_child(card)
-			card.visible = true
+			card.global_scale.x = 1
+			card.global_scale.y = 1
 			print(str(card))
 			add_card(card)
+			card.visible = true
 			print("Making: " + str(value) + " of " + str(suit))
 			card.set_suit(suit)
 			card.set_value(value)

@@ -16,7 +16,6 @@ var draw_card = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	display_area = find_child("DisplayArea", false)
-	
 	pass # Replace with function body.
 
 
@@ -30,7 +29,8 @@ func _process(delta):
 	
 func draw_random_card():
 	if deck != null:
-#		print("draw")
+		if len(deck.cards) == 0:
+			return
 		var card: Card = deck.draw_random()
 		cards.append(card)
 		display_area.place_card(card)
@@ -39,6 +39,7 @@ func draw_random_card():
 		card.connect("card_clicked", _select_card)
 		
 	draw_card = false
+	return
 
 # handles the "card clicked" signal
 func _select_card(card: Card):
@@ -148,6 +149,10 @@ func discard_card(card: Card = null):
 	
 func disconnect_card(card: Card):
 	for c in range(len(cards)):
+		if cards[c] == card:
+			cards.remove_at(c)
+			break
+	for c in range(len(cards_being_hovered)):
 		if cards[c] == card:
 			cards.remove_at(c)
 			break
