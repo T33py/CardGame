@@ -1,11 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://d1bk2kdlqmaqi"]
+[gd_scene load_steps=7 format=3 uid="uid://d1bk2kdlqmaqi"]
 
+[ext_resource type="PackedScene" uid="uid://d5whwwfuy24v" path="res://Util/GameManager.tscn" id="1_pny3p"]
 [ext_resource type="PackedScene" uid="uid://8mr51aludca3" path="res://Cards/Hand.tscn" id="2_dh85x"]
 [ext_resource type="PackedScene" uid="uid://diaxixmrj6t2t" path="res://Cards/Deck.tscn" id="3_h1md0"]
 [ext_resource type="PackedScene" uid="uid://bsj58duurpo3t" path="res://Cards/PlayArea.tscn" id="4_wl3in"]
 [ext_resource type="PackedScene" uid="uid://8gp6cu7uxu77" path="res://Util/HandPlayedTracker.tscn" id="5_tgm0c"]
+[ext_resource type="PackedScene" uid="uid://4rfawuf8j7rb" path="res://AI/BasicAI.tscn" id="6_dwy8h"]
 
 [node name="TestScene" type="Node2D"]
+
+[node name="GameManager" parent="." node_paths=PackedStringArray("ai", "player_play_area", "ai_play_area") instance=ExtResource("1_pny3p")]
+position = Vector2(62, -69)
+ai = NodePath("../BasicAI")
+player_play_area = NodePath("../PlayArea")
+ai_play_area = NodePath("../AIPlayArea")
 
 [node name="Deck" parent="." instance=ExtResource("3_h1md0")]
 position = Vector2(1111, 414)
@@ -18,9 +26,10 @@ deck = NodePath("../Deck")
 play_area = NodePath("../PlayArea")
 selected_card_y_offset = 200
 
-[node name="PlayArea" parent="." instance=ExtResource("4_wl3in")]
-position = Vector2(490, 370)
+[node name="PlayArea" parent="." node_paths=PackedStringArray("deck") instance=ExtResource("4_wl3in")]
+position = Vector2(495, 387)
 scale = Vector2(0.424793, 0.174878)
+deck = NodePath("../Deck")
 
 [node name="PlayCardButton" type="Button" parent="."]
 offset_left = 941.0
@@ -38,9 +47,39 @@ offset_bottom = 633.0
 scale = Vector2(1.43374, 1.7244)
 text = "Discard"
 
+[node name="PlayHand" type="Button" parent="."]
+offset_left = 937.0
+offset_top = 413.0
+offset_right = 945.0
+offset_bottom = 421.0
+scale = Vector2(1.30149, 1.42857)
+text = "Play hand"
+
 [node name="HandPlayedTracker" parent="." node_paths=PackedStringArray("play_area") instance=ExtResource("5_tgm0c")]
 position = Vector2(905, 361)
 play_area = NodePath("../PlayArea")
 
+[node name="BasicAI" parent="." node_paths=PackedStringArray("deck", "hand", "play_area") instance=ExtResource("6_dwy8h")]
+deck = NodePath("../AIDeck")
+hand = NodePath("../AIHand")
+play_area = NodePath("../AIPlayArea")
+
+[node name="AIDeck" parent="." instance=ExtResource("3_h1md0")]
+position = Vector2(893, 100)
+scale = Vector2(0.00996584, 0.0319674)
+
+[node name="AIHand" parent="." node_paths=PackedStringArray("deck", "play_area") instance=ExtResource("2_dh85x")]
+position = Vector2(492, 70)
+scale = Vector2(0.362564, 0.0719176)
+deck = NodePath("../AIDeck")
+play_area = NodePath("../AIPlayArea")
+
+[node name="AIPlayArea" parent="." node_paths=PackedStringArray("deck") instance=ExtResource("4_wl3in")]
+position = Vector2(484, 193)
+scale = Vector2(0.363493, 0.136051)
+deck = NodePath("../AIDeck")
+
 [connection signal="pressed" from="PlayCardButton" to="Hand" method="_on_play_card_button_pressed"]
 [connection signal="pressed" from="DiscardCardButton" to="Hand" method="_on_discard_card_button_pressed"]
+[connection signal="pressed" from="PlayHand" to="GameManager" method="_on_player_stands"]
+[connection signal="pressed" from="PlayHand" to="PlayArea" method="_on_play_hand_pressed"]

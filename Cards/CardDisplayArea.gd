@@ -15,7 +15,7 @@ func _process(delta):
 	pass
 
 func place_card(card: Card):
-	print("move card to display area")
+#	print("move card to display area")
 	card.reparent(get_parent())
 	cards.append(card)
 	layout_cards()

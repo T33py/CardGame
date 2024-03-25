@@ -27,12 +27,12 @@ func _ready():
 	discards_display.card_distance_offset = 5
 	
 	setup_default_deck()
-	pass # Replace with function body.
+	return # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	return
 
 func draw_random() -> Card:
 	if len(cards) == 0:
@@ -45,7 +45,7 @@ func draw_random() -> Card:
 	cards_display.remove_card(card)
 	return card
 	
-func discard(card: Card):
+func discard(card: Card)-> bool:
 	if card not in all_cards:
 		return false
 	discards.append(card)
@@ -59,18 +59,18 @@ func add_card(card: Card):
 	all_cards.append(card)
 	cards.append(card)
 	cards_display.place_card(card)
-	pass
+	return
 
 func setup_default_deck():
 	if default != null:
 		setup_deck(default)
-	pass
+	return
 	
 func setup_deck(specific_deck: Defaults):
 	cards.clear()
 	if specific_deck == Defaults.Default52:
 		setup_default52()
-	pass
+	return
 
 func setup_default52():
 	for suit in suits:
@@ -85,4 +85,4 @@ func setup_default52():
 			print("Making: " + str(value) + " of " + str(suit))
 			card.set_suit(suit)
 			card.set_value(value)
-	pass
+	return

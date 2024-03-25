@@ -1,8 +1,12 @@
 extends Node2D
 class_name PlayArea
 
+signal card_played
+signal hand_played
+
 var display_area: CardDisplayArea
 
+@export var deck: Deck
 @export var number_of_cards_to_allow = 5
 @export var selected_card_y_offset = 100
 var cards: Array[Card] = []
@@ -13,22 +17,36 @@ var selected_card: Card = null
 func _ready():
 	display_area = find_child("DisplayArea", false)
 	
-	pass # Replace with function body.
+	return # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	return
 	
-func play_card(card: Card):
+func play_card(card: Card)-> bool:
 	if len(cards) >= number_of_cards_to_allow:
 		return false
 	cards.append(card)
 	display_area.place_card(card)
 	card.connect("mouse_hovers", _player_hovers_over_card)
 	card.connect("mouse_stopped_hovering", _player_no_longer_hovers_over_card)
+	card_played.emit()
 	return true
 
+func play_hand():
+	hand_played.emit()
+	return
+	
+func clear():
+	for card in cards:
+		card.disconnect("mouse_hovers", _player_hovers_over_card)
+		card.disconnect("mouse_stopped_hovering", _player_no_longer_hovers_over_card)
+		display_area.remove_card(card)
+		deck.discard(card)
+		
+	cards.clear()
+	return
 
 # handles the mouse hovering multiple cards
 func handle_multihover():
@@ -51,17 +69,17 @@ func handle_multihover():
 		card.change_focused(false)
 		if card.z_index < top_z:
 			top_card = card
-		pass
+		
 	top_card.change_focused(true)
-	pass
+	return
 
 func _player_hovers_over_card(card: Card):
 	print("player hovers " + str(card))
 	if card not in cards_being_hovered:
 		cards_being_hovered.append(card)
 	handle_multihover()
-	pass
-	
+	return
+
 func _player_no_longer_hovers_over_card(card: Card):
 	print("player no longer hovers " + str(card))
 	for c in range(len(cards_being_hovered)):
@@ -70,5 +88,9 @@ func _player_no_longer_hovers_over_card(card: Card):
 			break
 	card.change_focused(false)
 	handle_multihover()
-	pass
-	
+	return
+
+
+func _on_play_hand_pressed():
+	play_hand()
+	return

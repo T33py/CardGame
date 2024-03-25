@@ -16,7 +16,7 @@ var draw_card = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	display_area = find_child("DisplayArea", false)
-	pass # Replace with function body.
+	return # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -25,7 +25,7 @@ func _process(delta):
 		draw_random_card()
 	if len(display_area.cards) < base_handsize:
 		draw_card = true
-	pass
+	return
 	
 func draw_random_card():
 	if deck != null:
@@ -34,9 +34,9 @@ func draw_random_card():
 		var card: Card = deck.draw_random()
 		cards.append(card)
 		display_area.place_card(card)
-		card.connect("mouse_hovers", _player_hovers_over_card)
-		card.connect("mouse_stopped_hovering", _player_no_longer_hovers_over_card)
-		card.connect("card_clicked", _select_card)
+		card.mouse_hovers.connect(_player_hovers_over_card)
+		card.mouse_stopped_hovering.connect(_player_no_longer_hovers_over_card)
+		card.card_clicked.connect(_select_card)
 		
 	draw_card = false
 	return
@@ -88,16 +88,15 @@ func handle_multihover():
 		card.change_focused(false)
 		if card.z_index < top_z:
 			top_card = card
-		pass
 	top_card.change_focused(true)
-	pass
+	return
 
 func _player_hovers_over_card(card: Card):
 #	print("player hovers " + str(card))
 	if card not in cards_being_hovered:
 		cards_being_hovered.append(card)
 	handle_multihover()
-	pass
+	return
 	
 func _player_no_longer_hovers_over_card(card: Card):
 #	print("player no longer hovers " + str(card))
@@ -107,32 +106,33 @@ func _player_no_longer_hovers_over_card(card: Card):
 			break
 	card.change_focused(false)
 	handle_multihover()
-	pass
+	return
 	
 
 
 func _on_play_card_button_pressed():
 	play_card()
-	pass # Replace with function body.
+	return # Replace with function body.
 
 
 func _on_discard_card_button_pressed():
 	discard_card()
-	pass # Replace with function body.
+	return # Replace with function body.
 
 	
 func play_card(card: Card = null):
 	if card == null:
 		card = selected_card
 	if card == null:
-		return
-	print("Play card from hand")
-	print("  " + str(card))
+		return false
+#	print("Play card from hand")
+#	print("  " + str(card))
 		
 	if play_area.play_card(card):
 		selected_card = null
 		disconnect_card(card)
-	pass
+		return true
+	return false
 
 func discard_card(card: Card = null):
 	if card == null:
@@ -145,7 +145,7 @@ func discard_card(card: Card = null):
 	if deck.discard(card):
 		selected_card = null
 		disconnect_card(card)
-	pass
+	return
 	
 func disconnect_card(card: Card):
 	for c in range(len(cards)):
@@ -160,4 +160,4 @@ func disconnect_card(card: Card):
 	card.disconnect("mouse_stopped_hovering", _player_no_longer_hovers_over_card)
 	card.disconnect("card_clicked", _select_card)
 	display_area.remove_card(card)
-	pass
+	return

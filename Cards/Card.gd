@@ -77,7 +77,7 @@ func _ready():
 	current_bottom_right_corner_suit = bottom_right_corner.find_child(symbols[my_suit], false)
 	
 	redraw()
-	pass # Replace with function body.
+	return # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -89,17 +89,17 @@ func _process(delta):
 		not_click_timer += delta
 		if not_click_timer >= not_click_delay:
 			global_position = get_global_mouse_position()
-	pass
+	return
 
 func set_suit(suit: Suits):
 	my_suit = suit
 	suit_or_value_changed = true
-	pass
+	return
 	
 func set_value(value: Values):
 	my_value = value
 	suit_or_value_changed = true
-	pass
+	return
 
 func redraw():
 	current_top_left_corner_suit.visible = false
@@ -123,7 +123,7 @@ func redraw():
 	current_center_pattern.modulate = colors[my_suit]
 	current_top_left_corner_value.modulate = colors[my_suit]
 	current_bottom_right_corner_value.modulate = colors[my_suit]
-	pass
+	return
 
 func get_width():
 	return find_child("BasicCardFront").texture.get_width() * scale.x
@@ -144,7 +144,7 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 		if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 			end_of_being_dragged()
 			print("released")
-	pass
+	return
 
 func change_focused(is_focus: bool):
 	if in_focus == is_focus:
@@ -155,7 +155,7 @@ func change_focused(is_focus: bool):
 		scale *= focus_scale
 	else:
 		scale = scale_before_focused
-	pass
+	return
 
 
 func end_of_being_dragged():
@@ -165,17 +165,17 @@ func end_of_being_dragged():
 	may_be_dragged = false
 	global_position = end_of_drag_return_position
 	not_click_timer = 0
-	pass
+	return
 
 func _on_area_2d_mouse_entered():
 	mouse_hovers.emit(self)
-	pass # Replace with function body.
+	return # Replace with function body.
 
 
 func _on_area_2d_mouse_exited():
 	mouse_stopped_hovering.emit(self)
 #	end_of_being_dragged()
-	pass # Replace with function body.
+	return # Replace with function body.
 
 func _to_string():
 	return str(patterns[my_value]) + " of " + str(symbols[my_suit]) + "s"
