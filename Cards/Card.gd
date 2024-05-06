@@ -126,10 +126,10 @@ func redraw():
 	return
 
 func get_width():
-	return find_child("BasicCardFront").texture.get_width() * scale.x
+	return find_child("BasicCardFront").texture.get_width()
 
 func get_height():
-	return find_child("BasicCardFront").texture.get_height() * scale.y
+	return find_child("BasicCardFront").texture.get_height()
 
 
 func _on_area_2d_input_event(viewport, event, shape_idx):

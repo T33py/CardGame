@@ -16,7 +16,7 @@ func _process(delta):
 
 func place_card(card: Card):
 #	print("move card to display area")
-	card.reparent(get_parent())
+#	card.reparent(get_parent())
 	cards.append(card)
 	layout_cards()
 	pass
@@ -39,20 +39,19 @@ func layout_cards():
 #		cards[0].position = self.position
 #		return
 	
-	var width = texture.get_width()
-	var left_border = position.x - (width / 2)
-	var dist = texture.get_width()
-	var interval = dist / segments
-	var target_height = texture.get_height() * scale.y * 1.05
+	var width = texture.get_width() * global_scale.x
+	var left_border = global_position.x - (width / 2)
+	var interval = width / segments
+	var target_height = texture.get_height() * global_scale.y * 1.05
 	
 	for i in range(segments):
 		var card = cards[i]
-		var card_height = card.get_height()
+		var card_height = card.get_height() * card.global_scale.y
 		card.scale *= target_height / card_height
 		
 		# place card at left border in the middle of its interval at interval 'i'
-		var offset = left_border + ((interval * 0.5 + interval * i) * card_distance_modifier) + (card_distance_offset/scale.x * i)
-		card.position = Vector2(offset, position.y)
+		var offset = left_border + ((interval * 0.5 + interval * i) * card_distance_modifier)# + (card_distance_offset/global_scale.x * i)
+		card.global_position = Vector2(offset, global_position.y)
 		
 		
 	pass
