@@ -1,6 +1,9 @@
 extends Node2D
 class_name PlayArea
 
+signal currently_hovered
+signal no_longer_hovered
+signal lmb_up
 signal card_played
 signal hand_played
 
@@ -12,6 +15,7 @@ var display_area: CardDisplayArea
 var cards: Array[Card] = []
 var cards_being_hovered: Array[Card] = []
 var selected_card: Card = null
+var hovered = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,6 +29,7 @@ func _process(delta):
 	return
 	
 func play_card(card: Card)-> bool:
+	cards_being_hovered.clear()
 	if len(cards) >= number_of_cards_to_allow:
 		return false
 	cards.append(card)
@@ -36,6 +41,7 @@ func play_card(card: Card)-> bool:
 
 func play_hand():
 	hand_played.emit()
+	cards_being_hovered.clear()
 	return
 	
 func clear():
@@ -93,4 +99,35 @@ func _player_no_longer_hovers_over_card(card: Card):
 
 func _on_play_hand_pressed():
 	play_hand()
+	return
+
+
+func _on_area_2d_mouse_entered():
+	print("hovers pa")
+	hovered = true
+	currently_hovered.emit()
+	return
+
+
+func _on_area_2d_mouse_exited():
+	hovered = false
+	no_longer_hovered.emit()
+	return
+
+
+func _on_area_2d_input_event(viewport, event, shape_idx):
+	if event is InputEventMouseButton:
+		if hovered:
+			if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+				lmb_up.emit()
+		if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
+			print("lmb up")
+	pass # Replace with function body.
+
+
+func remove_from_list(item, list: Array):
+	for i in range(len(list)):
+		if list[i] == item:
+			list.remove_at(i)
+			break
 	return

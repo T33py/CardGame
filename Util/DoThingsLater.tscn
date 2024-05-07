@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ck8csy0t2wprb"]
+
+[ext_resource type="Script" path="res://Util/DoThingsLater.gd" id="1_pno6g"]
+
+[node name="DoThingsLater" type="Node2D"]
+script = ExtResource("1_pno6g")

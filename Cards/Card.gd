@@ -3,9 +3,13 @@ class_name Card
 
 enum Suits  { Hearts, Diamonds, Clubs, Spades, }
 enum Values { Ace, One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, Jack, Queen, King, }
+enum States { InDeck, Discarded, InHand, InField, Moving }
 signal card_clicked(card: Card)
 signal mouse_hovers(card: Card)
 signal mouse_stopped_hovering(card: Card)
+signal picked_up(card: Card)
+var emitted_picked_up = false
+signal put_down(card: Card)
 
 var colors = {
 	Suits.Hearts: Color("ec0808"), 
@@ -48,6 +52,8 @@ var not_click_timer = 0
 
 @export var my_suit : Suits = Suits.Hearts
 @export var my_value: Values = Values.Ace
+var my_state: States = States.InDeck
+var remembered_state: States = States.InDeck
 
 var current_center_pattern
 var current_top_left_corner_value
@@ -63,7 +69,7 @@ var center_pattern: Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print("new card")
+#	print("new card")
 	end_of_drag_return_position = position
 	content = find_child("Content", false)
 	top_left_corner = content.find_child("TopLeftCorner", false)
@@ -88,7 +94,7 @@ func _process(delta):
 	if may_be_dragged:
 		not_click_timer += delta
 		if not_click_timer >= not_click_delay:
-			global_position = get_global_mouse_position()
+			being_dragged()
 	return
 
 func set_suit(suit: Suits):
@@ -158,13 +164,27 @@ func change_focused(is_focus: bool):
 	return
 
 
+func being_dragged():
+	if !emitted_picked_up:
+		picked_up.emit(self)
+		emitted_picked_up = true
+	if my_state != States.Moving:
+		remembered_state = my_state
+		my_state = States.Moving
+	global_position = get_global_mouse_position()
+	return
+
 func end_of_being_dragged():
 	if not may_be_dragged:
 		return
 	
 	may_be_dragged = false
 	global_position = end_of_drag_return_position
+	my_state = remembered_state
+	emitted_picked_up = false
 	not_click_timer = 0
+	
+	put_down.emit(self)
 	return
 
 func _on_area_2d_mouse_entered():

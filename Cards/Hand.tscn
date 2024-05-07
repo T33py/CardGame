@@ -6,6 +6,7 @@
 
 [node name="Hand" type="Node2D"]
 script = ExtResource("1_352qs")
+base_handsize = 12
 
 [node name="DisplayArea" type="Sprite2D" parent="."]
 modulate = Color(0.14902, 0.14902, 0.14902, 0.443137)

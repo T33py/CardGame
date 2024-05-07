@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://diaxixmrj6t2t"]
+[gd_scene load_steps=6 format=3 uid="uid://diaxixmrj6t2t"]
 
 [ext_resource type="Script" path="res://Cards/Deck.gd" id="1_jn2pq"]
 [ext_resource type="PackedScene" uid="uid://dvpn0452oidu1" path="res://Cards/Card.tscn" id="2_84ayr"]
 [ext_resource type="Texture2D" uid="uid://8ujeu6jiqytt" path="res://Art/UIArt/BG.png" id="3_mjgrq"]
 [ext_resource type="Script" path="res://Cards/CardDisplayArea.gd" id="4_r1abr"]
+[ext_resource type="PackedScene" uid="uid://ck8csy0t2wprb" path="res://Util/DoThingsLater.tscn" id="5_n6hyd"]
 
 [node name="Deck" type="Node2D"]
 script = ExtResource("1_jn2pq")
@@ -19,3 +20,5 @@ modulate = Color(0.14902, 0.14902, 0.14902, 0.443137)
 position = Vector2(2, -1230)
 texture = ExtResource("3_mjgrq")
 script = ExtResource("4_r1abr")
+
+[node name="DoThingsLater" parent="." instance=ExtResource("5_n6hyd")]

@@ -29,6 +29,8 @@ func _process(delta):
 	
 func draw_random_card():
 	if deck != null:
+		if not deck.deck_ready:
+			return
 		if len(deck.cards) == 0:
 			return
 		var card: Card = deck.draw_random()
@@ -72,7 +74,7 @@ func handle_multihover():
 	if len(cards_being_hovered) == 0:
 		return
 		
-	print(cards_being_hovered)
+	print("hand " + str(cards_being_hovered))
 	
 	for card in cards_being_hovered:
 		card.change_focused(false)
@@ -125,8 +127,8 @@ func play_card(card: Card = null):
 		card = selected_card
 	if card == null:
 		return false
-#	print("Play card from hand")
-#	print("  " + str(card))
+	print("Play card from hand")
+	print("  " + str(card))
 		
 	if play_area.play_card(card):
 		selected_card = null
@@ -152,12 +154,16 @@ func disconnect_card(card: Card):
 		if cards[c] == card:
 			cards.remove_at(c)
 			break
-	for c in range(len(cards_being_hovered)):
-		if cards[c] == card:
-			cards.remove_at(c)
-			break
 	card.disconnect("mouse_hovers", _player_hovers_over_card)
 	card.disconnect("mouse_stopped_hovering", _player_no_longer_hovers_over_card)
 	card.disconnect("card_clicked", _select_card)
 	display_area.remove_card(card)
+	remove_from_list(card, cards_being_hovered)
+	return
+	
+func remove_from_list(item, list: Array):
+	for i in range(len(list)):
+		if list[i] == item:
+			list.remove_at(i)
+			break
 	return

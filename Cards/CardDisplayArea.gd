@@ -46,11 +46,12 @@ func layout_cards():
 	
 	for i in range(segments):
 		var card = cards[i]
+		card.z_index = z_index + 1 + i
 		var card_height = card.get_height() * card.global_scale.y
 		card.scale *= target_height / card_height
 		
 		# place card at left border in the middle of its interval at interval 'i'
-		var offset = left_border + ((interval * 0.5 + interval * i) * card_distance_modifier)# + (card_distance_offset/global_scale.x * i)
+		var offset = left_border + ((interval * 0.5 + interval * i) * card_distance_modifier) + (card_distance_offset/global_scale.x * i)
 		card.global_position = Vector2(offset, global_position.y)
 		
 		

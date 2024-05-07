@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d1bk2kdlqmaqi"]
+[gd_scene load_steps=8 format=3 uid="uid://d1bk2kdlqmaqi"]
 
 [ext_resource type="PackedScene" uid="uid://d5whwwfuy24v" path="res://Util/GameManager.tscn" id="1_pny3p"]
 [ext_resource type="PackedScene" uid="uid://8mr51aludca3" path="res://Cards/Hand.tscn" id="2_dh85x"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bsj58duurpo3t" path="res://Cards/PlayArea.tscn" id="4_wl3in"]
 [ext_resource type="PackedScene" uid="uid://8gp6cu7uxu77" path="res://Util/HandPlayedTracker.tscn" id="5_tgm0c"]
 [ext_resource type="PackedScene" uid="uid://4rfawuf8j7rb" path="res://AI/BasicAI.tscn" id="6_dwy8h"]
+[ext_resource type="PackedScene" uid="uid://cbag0cl0xkr4y" path="res://Player/Player.tscn" id="7_2nne3"]
 
 [node name="TestScene" type="Node2D"]
 
@@ -14,18 +15,6 @@ position = Vector2(62, -69)
 ai = NodePath("../BasicAI")
 player_play_area = NodePath("../PlayArea")
 ai_play_area = NodePath("../AIPlayArea")
-
-[node name="Hand" parent="." node_paths=PackedStringArray("deck", "play_area") instance=ExtResource("2_dh85x")]
-position = Vector2(483, 563)
-scale = Vector2(0.419673, 0.108841)
-deck = NodePath("../Deck")
-play_area = NodePath("../PlayArea")
-selected_card_y_offset = 200
-
-[node name="PlayArea" parent="." node_paths=PackedStringArray("deck") instance=ExtResource("4_wl3in")]
-position = Vector2(495, 387)
-scale = Vector2(0.424793, 0.174878)
-deck = NodePath("../Deck")
 
 [node name="PlayCardButton" type="Button" parent="."]
 offset_left = 941.0
@@ -74,6 +63,23 @@ deck = NodePath("../AIDeck")
 [node name="AIDeck" parent="." instance=ExtResource("3_h1md0")]
 position = Vector2(893, 100)
 scale = Vector2(0.00996584, 0.0319674)
+
+[node name="Player" parent="." node_paths=PackedStringArray("deck", "hand", "playarea") instance=ExtResource("7_2nne3")]
+deck = NodePath("../Deck")
+hand = NodePath("../Hand")
+playarea = NodePath("../PlayArea")
+
+[node name="PlayArea" parent="." node_paths=PackedStringArray("deck") instance=ExtResource("4_wl3in")]
+position = Vector2(495, 387)
+scale = Vector2(0.424793, 0.174878)
+deck = NodePath("../Deck")
+
+[node name="Hand" parent="." node_paths=PackedStringArray("deck", "play_area") instance=ExtResource("2_dh85x")]
+position = Vector2(483, 563)
+scale = Vector2(0.419673, 0.108841)
+deck = NodePath("../Deck")
+play_area = NodePath("../PlayArea")
+selected_card_y_offset = 200
 
 [node name="Deck" parent="." instance=ExtResource("3_h1md0")]
 position = Vector2(1111, 414)
