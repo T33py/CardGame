@@ -8,8 +8,8 @@ var thing_timers: Array[float] = []
 var thing_timer_durations: Array[float] = []
 
 # don't keep alocating these needlessly
-var something_timed_out = false
-var things_that_timed_out: Array[int] = []
+var things_to_do_this_frame: Array[Callable] = []
+var things_that_timed_out: Array[Callable] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,24 +18,26 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	# calling a thing may remove that thing from the list of things to do later
+	# DON'T try to optimize
 	if len(things_to_do_each_frame) > 0:
 		for thing in things_to_do_each_frame:
+			things_to_do_this_frame.append(thing)
+		for thing in things_to_do_this_frame:
 			thing.call()
+		things_to_do_this_frame.clear()
+		
 			
 	if len(things_to_do_on_a_timer) > 0:
 		for i in range(len(things_to_do_on_a_timer)):
 			thing_timers[i] -= delta
 			if thing_timers[i] <= 0:
-				things_that_timed_out.append(i)
-				something_timed_out = true
-		
-		if something_timed_out:
-			for i in things_that_timed_out:
-				things_to_do_on_a_timer[i].call()
-				thing_timers[i] += thing_timer_durations[i]
-				
-				
-			things_that_timed_out.clear()
+				things_that_timed_out.append(things_to_do_on_a_timer[i])
+		for thing in things_that_timed_out:
+			var idx = things_to_do_on_a_timer.find(thing, 0)
+			thing_timers[idx] += thing_timer_durations[idx]
+			thing.call()
+		things_that_timed_out.clear()
 	return
 
 
