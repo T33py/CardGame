@@ -40,6 +40,15 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	# We need to remember the card that the player picked up untill the next frame 
+	# to make shure other things can react to the event that made the card not be picked up this frame
+	if clear_currently_picked_up_card:
+		if pickup_clear_next > 0:
+			pickup_clear_next = 0
+		else:
+			clear_currently_picked_up_card = false
+			currently_picked_up_card = null
+		
 	return
 
 func draw_random() -> Card:
@@ -91,13 +100,18 @@ func on_card_picked_up(card: Card):
 		return
 	if currently_picked_up_card == null:
 		currently_picked_up_card = card
+		clear_currently_picked_up_card = false
+		pickup_clear_next = 0
 		print("picked up " + str(card))
 		return
 	
-	if currently_picked_up_card.z_index < card.z_index:
+	elif currently_picked_up_card.z_index < card.z_index:
 		currently_picked_up_card.end_of_being_dragged()
 		currently_picked_up_card = card
+		clear_currently_picked_up_card = false
+		pickup_clear_next = 0
 		print("picked up " + str(currently_picked_up_card))
+		
 	else:
 		card.end_of_being_dragged()
 	return
@@ -106,6 +120,9 @@ func on_card_put_down(card: Card):
 	print("on card put down " + str(card))
 	if card == null:
 		return
+	if card == currently_picked_up_card:
+		clear_currently_picked_up_card = true
+		pickup_clear_next = 1
 	return
 
 func setup_default_deck():

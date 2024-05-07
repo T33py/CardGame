@@ -133,6 +133,7 @@ func play_card(card: Card = null):
 	if play_area.play_card(card):
 		selected_card = null
 		disconnect_card(card)
+		display_area.layout_cards()
 		return true
 	return false
 

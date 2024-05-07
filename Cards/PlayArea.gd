@@ -120,8 +120,6 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 		if hovered:
 			if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 				lmb_up.emit()
-		if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
-			print("lmb up")
 	pass # Replace with function body.
 
 
