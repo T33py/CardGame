@@ -28,6 +28,7 @@ func _ready():
 func _process(delta):
 	return
 	
+# play a card onto the play area
 func play_card(card: Card)-> bool:
 	cards_being_hovered.clear()
 	if len(cards) >= number_of_cards_to_allow:
@@ -36,22 +37,33 @@ func play_card(card: Card)-> bool:
 	display_area.place_card(card)
 	card.connect("mouse_hovers", _player_hovers_over_card)
 	card.connect("mouse_stopped_hovering", _player_no_longer_hovers_over_card)
+	card.am_being_hovered_over.connect(_on_card_is_hovered_over)
 	card_played.emit()
 	return true
 
 func play_hand():
 	hand_played.emit()
+	for card in cards:
+		remove_card_from_play(card)
 	cards_being_hovered.clear()
+	selected_card = null
+	return
+
+# remove a card from the play area
+func remove_card_from_play(card: Card):
+	if card not in cards:
+		return
+	display_area.remove_card(card)
+	card.mouse_hovers.disconnect(_player_hovers_over_card)
+	card.mouse_stopped_hovering.disconnect(_player_no_longer_hovers_over_card)
+	card.am_being_hovered_over.disconnect(_on_card_is_hovered_over)
+	remove_from_list(card, cards)
+	deck.discard(card)
 	return
 	
 func clear():
 	for card in cards:
-		card.disconnect("mouse_hovers", _player_hovers_over_card)
-		card.disconnect("mouse_stopped_hovering", _player_no_longer_hovers_over_card)
-		display_area.remove_card(card)
-		deck.discard(card)
-		
-	cards.clear()
+		remove_card_from_play(card)
 	return
 
 # handles the mouse hovering multiple cards
@@ -67,7 +79,6 @@ func handle_multihover():
 	if len(cards_being_hovered) == 1:
 		cards_being_hovered[0].change_focused(true)
 		return
-	
 	
 	var top_z = 10000
 	var top_card:Card = cards[0]
@@ -112,6 +123,7 @@ func _on_area_2d_mouse_entered():
 func _on_area_2d_mouse_exited():
 	hovered = false
 	no_longer_hovered.emit()
+	display_area.remove_phantom_card()
 	return
 
 
@@ -120,8 +132,26 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 		if hovered:
 			if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 				lmb_up.emit()
+				display_area.remove_phantom_card()
 	pass # Replace with function body.
 
+func _on_card_is_hovered_over(card: Card, hoverer: Card):
+	if len(cards) >= number_of_cards_to_allow:
+		return
+	if card not in cards:
+		return
+	
+	var i = 0
+	for c in cards:
+		if c == card:
+			break
+		i += 1
+	display_area.add_phantom_card(i)
+	return
+
+func _on_area_2d_area_exited(area):
+	display_area.remove_phantom_card()
+	return
 
 func remove_from_list(item, list: Array):
 	for i in range(len(list)):
@@ -129,3 +159,4 @@ func remove_from_list(item, list: Array):
 			list.remove_at(i)
 			break
 	return
+

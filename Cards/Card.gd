@@ -10,6 +10,7 @@ signal mouse_stopped_hovering(card: Card)
 signal picked_up(card: Card)
 var emitted_picked_up = false
 signal put_down(card: Card)
+signal am_being_hovered_over(me: Card, other: Card)
 
 var colors = {
 	Suits.Hearts: Color("ec0808"), 
@@ -199,3 +200,11 @@ func _on_area_2d_mouse_exited():
 
 func _to_string():
 	return str(patterns[my_value]) + " of " + str(symbols[my_suit]) + "s"
+
+
+func _on_area_2d_area_entered(area):
+	if area.get_parent() is Card:
+		var card = area.get_parent() as Card
+		if not may_be_dragged and card.may_be_dragged:
+			am_being_hovered_over.emit(self, area as Card)
+	pass # Replace with function body.
