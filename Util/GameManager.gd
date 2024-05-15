@@ -14,7 +14,7 @@ var player_stands = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player_play_area.card_played.connect(_on_player_played_card)
-	player_play_area.hand_played.connect(_on_player_stands)
+	player_play_area.end_turn.connect(_on_player_stands)
 	ai_play_area.card_played.connect(_on_ai_played_card)
 	ai.i_stand.connect(_on_ai_stands)
 	return 
@@ -45,7 +45,7 @@ func _on_player_played_card():
 	ai.take_a_turn()
 	return
 
-func _on_player_stands():
+func _on_player_stands(cards: Array[Card]):
 	player_stands = true
 	return
 

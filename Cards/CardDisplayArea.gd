@@ -19,16 +19,15 @@ func _process(delta):
 func place_card(card: Card):
 	if phantom_card:
 		cards.insert(phantom_card_pos, card)
+		remove_phantom_card()
 	else:
 		cards.append(card)
 	layout_cards()
 	pass
 	
 func remove_card(card: Card):
-	for i in range(len(cards)):
-		if cards[i] == card:
-			cards.remove_at(i)
-			break
+	remove_phantom_card()
+	remove_from_list(card, cards)
 	layout_cards()
 	pass
 	
@@ -39,6 +38,8 @@ func add_phantom_card(pos: int):
 	return
 	
 func remove_phantom_card():
+	if not phantom_card:
+		return
 	phantom_card = false
 	layout_cards()
 	return
@@ -77,4 +78,11 @@ func layout_cards():
 		var offset = left_border + ((interval * 0.5 + interval * i) * card_distance_modifier) + (card_distance_offset/global_scale.x * i)
 		card.global_position = Vector2(offset, global_position.y)
 		
+	return
+
+func remove_from_list(item, list: Array):
+	for i in range(len(list)):
+		if list[i] == item:
+			list.remove_at(i)
+			break
 	return

@@ -40,8 +40,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	# We need to remember the card that the player picked up untill the next frame 
-	# to make shure other things can react to the event that made the card not be picked up this frame
+	# We need to remember the card that the player picked up untill the next frame -
+	# - to make shure other things can react to the event that made the card not be picked up this frame
 	if clear_currently_picked_up_card:
 		if pickup_clear_next > 0:
 			pickup_clear_next = 0
@@ -65,6 +65,7 @@ func draw_random() -> Card:
 func discard(card: Card)-> bool:
 	if card not in all_cards:
 		return false
+	print("discarding " + str(card))
 	discards.append(card)
 	discards_display.place_card(card)
 #	redo_card_positions()
@@ -148,18 +149,19 @@ func setup_next_playing_card():
 		do_things_later.remove_thing_to_do_each_frame(setup_next_playing_card)
 		deck_ready = true
 		return
-	var suit = cards_to_set_up[0][0]
-	var value = cards_to_set_up[0][1]
-	var card  = card_template.instantiate() as Card
-	add_child(card)
-	card.global_scale.x = 1
-	card.global_scale.y = 1
-	card.visible = true
-#			print("Making: " + str(value) + " of " + str(suit))
-	card.set_suit(suit)
-	card.set_value(value)
-	add_card(card)
-	cards_to_set_up.remove_at(0)
+	while len(cards_to_set_up) > 0:
+		var suit = cards_to_set_up[0][0]
+		var value = cards_to_set_up[0][1]
+		var card  = card_template.instantiate() as Card
+		add_child(card)
+		card.global_scale.x = 1
+		card.global_scale.y = 1
+		card.visible = true
+	#			print("Making: " + str(value) + " of " + str(suit))
+		card.set_suit(suit)
+		card.set_value(value)
+		add_card(card)
+		cards_to_set_up.remove_at(0)
 	return
 
 func remove_from_list(item, list: Array):

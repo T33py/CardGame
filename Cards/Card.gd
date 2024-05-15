@@ -7,10 +7,16 @@ enum States { InDeck, Discarded, InHand, InField, Moving }
 signal card_clicked(card: Card)
 signal mouse_hovers(card: Card)
 signal mouse_stopped_hovering(card: Card)
+var hover_ee_protect = false
+
 signal picked_up(card: Card)
-var emitted_picked_up = false
 signal put_down(card: Card)
+var emitted_picked_up = false
+
 signal am_being_hovered_over(me: Card, other: Card)
+var left_hover_detect: Area2D
+var right_hover_detect: Area2D
+var hover_side = 0
 
 var colors = {
 	Suits.Hearts: Color("ec0808"), 
@@ -83,6 +89,11 @@ func _ready():
 	current_bottom_right_corner_value = bottom_right_corner.find_child(patterns[my_value], false)
 	current_bottom_right_corner_suit = bottom_right_corner.find_child(symbols[my_suit], false)
 	
+	left_hover_detect = find_child("left_side", false)
+	left_hover_detect.hovered.connect(_on_hovered_by)
+	right_hover_detect = find_child("right_side", false)
+	right_hover_detect.hovered.connect(_on_hovered_by)
+	
 	redraw()
 	return # Replace with function body.
 
@@ -96,6 +107,9 @@ func _process(delta):
 		not_click_timer += delta
 		if not_click_timer >= not_click_delay:
 			being_dragged()
+	
+	if hover_ee_protect:
+		hover_ee_protect = false
 	return
 
 func set_suit(suit: Suits):
@@ -189,11 +203,14 @@ func end_of_being_dragged():
 	return
 
 func _on_area_2d_mouse_entered():
+	hover_ee_protect = true
 	mouse_hovers.emit(self)
 	return # Replace with function body.
 
 
 func _on_area_2d_mouse_exited():
+	if hover_ee_protect:
+		return
 	mouse_stopped_hovering.emit(self)
 #	end_of_being_dragged()
 	return # Replace with function body.
@@ -202,9 +219,10 @@ func _to_string():
 	return str(patterns[my_value]) + " of " + str(symbols[my_suit]) + "s"
 
 
-func _on_area_2d_area_entered(area):
+func _on_hovered_by(area, side: int):
 	if area.get_parent() is Card:
 		var card = area.get_parent() as Card
 		if not may_be_dragged and card.may_be_dragged:
+			hover_side = side
 			am_being_hovered_over.emit(self, area as Card)
 	pass # Replace with function body.

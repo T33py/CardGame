@@ -5,7 +5,7 @@ signal currently_hovered
 signal no_longer_hovered
 signal lmb_up
 signal card_played
-signal hand_played
+signal end_turn(cards: Array[Card])
 
 var display_area: CardDisplayArea
 
@@ -33,8 +33,8 @@ func play_card(card: Card)-> bool:
 	cards_being_hovered.clear()
 	if len(cards) >= number_of_cards_to_allow:
 		return false
-	cards.append(card)
 	display_area.place_card(card)
+	cards = display_area.cards
 	card.connect("mouse_hovers", _player_hovers_over_card)
 	card.connect("mouse_stopped_hovering", _player_no_longer_hovers_over_card)
 	card.am_being_hovered_over.connect(_on_card_is_hovered_over)
@@ -42,11 +42,16 @@ func play_card(card: Card)-> bool:
 	return true
 
 func play_hand():
-	hand_played.emit()
+	var cards_played = []
 	for card in cards:
+		cards_played.append(card)
+	for card in cards_played:
 		remove_card_from_play(card)
+	print("ending turn with " + str(cards_played))
 	cards_being_hovered.clear()
 	selected_card = null
+	display_area.layout_cards()
+	end_turn.emit(cards_played)
 	return
 
 # remove a card from the play area
@@ -136,14 +141,16 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 	pass # Replace with function body.
 
 func _on_card_is_hovered_over(card: Card, hoverer: Card):
-	if len(cards) >= number_of_cards_to_allow:
-		return
 	if card not in cards:
+		return
+	if len(cards) >= number_of_cards_to_allow:
 		return
 	
 	var i = 0
 	for c in cards:
 		if c == card:
+			if c.hover_side == 1:
+				i += 1
 			break
 		i += 1
 	display_area.add_phantom_card(i)
