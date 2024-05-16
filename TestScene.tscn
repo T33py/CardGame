@@ -75,7 +75,7 @@ scale = Vector2(0.424793, 0.174878)
 deck = NodePath("../Deck")
 
 [node name="Hand" parent="." node_paths=PackedStringArray("deck", "play_area") instance=ExtResource("2_dh85x")]
-position = Vector2(483, 563)
+position = Vector2(486, 604)
 scale = Vector2(0.419673, 0.108841)
 deck = NodePath("../Deck")
 play_area = NodePath("../PlayArea")

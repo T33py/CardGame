@@ -39,6 +39,7 @@ func play_card(card: Card)-> bool:
 	card.connect("mouse_stopped_hovering", _player_no_longer_hovers_over_card)
 	card.am_being_hovered_over.connect(_on_card_is_hovered_over)
 	card.focusloss_scale_override = true
+	card.my_state = card.States.InField
 	card_played.emit()
 	return true
 

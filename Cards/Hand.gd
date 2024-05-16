@@ -39,6 +39,7 @@ func draw_random_card():
 		card.mouse_hovers.connect(_player_hovers_over_card)
 		card.mouse_stopped_hovering.connect(_player_no_longer_hovers_over_card)
 		card.card_clicked.connect(_select_card)
+		card.my_state = card.States.InHand
 		
 	draw_card = false
 	return

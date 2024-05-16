@@ -39,6 +39,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+@warning_ignore("unused_parameter")
 func _process(delta):
 	# We need to remember the card that the player picked up untill the next frame -
 	# - to make shure other things can react to the event that made the card not be picked up this frame
@@ -63,9 +64,11 @@ func draw_random() -> Card:
 	return card
 	
 func discard(card: Card)-> bool:
-	if card not in all_cards:
+	if card == null:
 		return false
 	print("discarding " + str(card))
+	card.my_state = card.States.Discarded
+	card.z_index = len(discards)
 	discards.append(card)
 	discards_display.place_card(card)
 #	redo_card_positions()
@@ -93,6 +96,17 @@ func remove_card(card: Card):
 	cards_display.remove_card(card)
 	remove_from_list(card, all_cards)
 	remove_from_list(card, cards)
+	return
+
+func shuffle():
+	var new_order = []
+	while len(cards) > 0:
+		var idx = random.randi_range(0, len(cards)-1)
+		var card = cards[idx]
+		cards.remove_at(idx)
+		new_order.append(card)
+	for card in new_order:
+		cards.append(card)
 	return
 
 func on_card_picked_up(card: Card):
