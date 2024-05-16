@@ -87,5 +87,4 @@ scale = Vector2(0.0213682, 0.0851462)
 
 [connection signal="pressed" from="PlayCardButton" to="Hand" method="_on_play_card_button_pressed"]
 [connection signal="pressed" from="DiscardCardButton" to="Hand" method="_on_discard_card_button_pressed"]
-[connection signal="pressed" from="PlayHand" to="GameManager" method="_on_player_stands"]
-[connection signal="pressed" from="PlayHand" to="PlayArea" method="_on_play_hand_pressed"]
+[connection signal="button_up" from="PlayHand" to="PlayArea" method="_on_play_hand_pressed"]

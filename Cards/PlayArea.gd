@@ -38,11 +38,12 @@ func play_card(card: Card)-> bool:
 	card.connect("mouse_hovers", _player_hovers_over_card)
 	card.connect("mouse_stopped_hovering", _player_no_longer_hovers_over_card)
 	card.am_being_hovered_over.connect(_on_card_is_hovered_over)
+	card.focusloss_scale_override = true
 	card_played.emit()
 	return true
 
 func play_hand():
-	var cards_played = []
+	var cards_played: Array[Card] = []
 	for card in cards:
 		cards_played.append(card)
 	for card in cards_played:

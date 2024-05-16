@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dvpn0452oidu1"]
+[gd_scene load_steps=24 format=3 uid="uid://dvpn0452oidu1"]
 
 [ext_resource type="Script" path="res://Cards/Card.gd" id="1_rbxv6"]
 [ext_resource type="Texture2D" uid="uid://c5yptrtfiw8f4" path="res://Art/CardArt/BasicCardFront.png" id="2_yntag"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://b7ym6avgi5fmf" path="res://Art/CardArt/Spade.png" id="19_nr0t2"]
 [ext_resource type="Texture2D" uid="uid://kgu7b8w4vbr2" path="res://Art/CardArt/Club.png" id="20_hiddl"]
 [ext_resource type="Script" path="res://Cards/Hover_side.gd" id="21_avnkl"]
+[ext_resource type="Texture2D" uid="uid://c55tm3b6wa35b" path="res://Art/UIArt/Border.png" id="22_cq4gt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_86r2k"]
 size = Vector2(60, 90)
@@ -352,6 +353,20 @@ hover_side = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="right_side"]
 shape = SubResource("RectangleShape2D_86r2k")
+
+[node name="FocusBorder" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0.631373, 0.615686, 0.0745098, 0.454902)
+position = Vector2(2.68221e-07, -5.96046e-07)
+scale = Vector2(0.0322917, 0.0833333)
+texture = ExtResource("22_cq4gt")
+
+[node name="FocusBorder2" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0.631373, 0.615686, 0.0745098, 0.215686)
+position = Vector2(1.2517e-06, 7.7486e-07)
+scale = Vector2(0.0333333, 0.0851852)
+texture = ExtResource("22_cq4gt")
 
 [connection signal="area_entered" from="left_side" to="left_side" method="_on_area_entered"]
 [connection signal="input_event" from="left_side" to="." method="_on_area_2d_input_event"]

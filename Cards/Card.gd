@@ -47,9 +47,13 @@ var symbols = {
 	Suits.Spades: "Spade",
 }
 
+var focusable = true
+var focusloss_scale_override = false
 var in_focus = false
 var focus_scale = 1.05
 var scale_before_focused = 1
+var focusborder: Sprite2D
+var focusborder2: Sprite2D
 
 var may_be_dragged = false
 var user_attempts_to_drag = false
@@ -93,6 +97,9 @@ func _ready():
 	left_hover_detect.hovered.connect(_on_hovered_by)
 	right_hover_detect = find_child("right_side", false)
 	right_hover_detect.hovered.connect(_on_hovered_by)
+	
+	focusborder = find_child("FocusBorder", false)
+	focusborder2 = find_child("FocusBorder2", false)
 	
 	redraw()
 	return # Replace with function body.
@@ -168,14 +175,21 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 	return
 
 func change_focused(is_focus: bool):
-	if in_focus == is_focus:
+	if in_focus == is_focus or not focusable:
 		return
 	in_focus = is_focus
 	if in_focus:
 		scale_before_focused = scale
 		scale *= focus_scale
+		focusborder.visible = true
+		focusborder2.visible = true
 	else:
-		scale = scale_before_focused
+		# if the scale has not been overwritten we return to the original one
+		if not focusloss_scale_override:
+			scale = scale_before_focused
+		focusloss_scale_override = false
+		focusborder.visible = false
+		focusborder2.visible = false
 	return
 
 
@@ -187,6 +201,7 @@ func being_dragged():
 		remembered_state = my_state
 		my_state = States.Moving
 	global_position = get_global_mouse_position()
+	focusable = false
 	return
 
 func end_of_being_dragged():
@@ -198,6 +213,7 @@ func end_of_being_dragged():
 	my_state = remembered_state
 	emitted_picked_up = false
 	not_click_timer = 0
+	focusable = true
 	
 	put_down.emit(self)
 	return

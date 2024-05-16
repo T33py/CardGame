@@ -28,10 +28,10 @@ var random = RandomNumberGenerator.new()
 func _ready():
 	cards_display = find_child("DeckDisplayArea", false)
 	cards_display.card_distance_modifier = 0
-	cards_display.card_distance_offset = 5
+	cards_display.card_distance_offset = 0.1
 	discards_display = find_child("DiscardsDisplayArea", false)
 	discards_display.card_distance_modifier = 0
-	discards_display.card_distance_offset = 5
+	discards_display.card_distance_offset = 0.1
 	do_things_later = find_child("DoThingsLater", false)
 	
 	setup_default_deck()

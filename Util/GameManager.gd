@@ -8,6 +8,7 @@ extends Node2D
 var hand_clear_timer = 0
 
 var ai_stands = false
+var ai_played_hand = false
 var player_stands = false
 
 
@@ -23,7 +24,9 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if ai_stands && player_stands:
-		ai.play_a_hand()
+		if not ai_played_hand:
+			ai.play_a_hand()
+			ai_played_hand = true
 		hand_clear_timer += delta
 		if hand_clear_timer >= hand_clear_delay:
 			hand_clear_timer = 0
@@ -46,6 +49,7 @@ func _on_player_played_card():
 	return
 
 func _on_player_stands(cards: Array[Card]):
+	print(str(cards))
 	player_stands = true
 	return
 
