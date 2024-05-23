@@ -77,20 +77,17 @@ func handle_multihover():
 		
 	print("hand " + str(cards_being_hovered))
 	
-	for card in cards_being_hovered:
-		card.change_focused(false)
-		
 	if len(cards_being_hovered) == 1:
 		cards_being_hovered[0].change_focused(true)
 		return
 	
-	
-	var top_z = 10000
 	var top_card:Card = cards[0]
+	var top_z = top_card.z_index
 	for card in cards_being_hovered:
-		card.change_focused(false)
-		if card.z_index < top_z:
+		if card.z_index > top_z:
 			top_card = card
+			top_z = top_card.z_index
+		card.change_focused(false)
 	top_card.change_focused(true)
 	return
 

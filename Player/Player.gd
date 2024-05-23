@@ -20,9 +20,10 @@ func on_playarea_lmb_up():
 	print("try to play " + str(card))
 	if card == null:
 		return
-	if card not in hand.cards:
-		return
 	
-	card.end_of_being_dragged()	
-	hand.play_card(card)
+	if card in hand.cards or card in playarea.cards:
+		card.end_of_being_dragged()	
+		hand.play_card(card)
+		
+	
 	return

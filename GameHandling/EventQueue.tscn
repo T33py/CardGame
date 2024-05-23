@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfev4w8mcbl1u"]
+
+[ext_resource type="Script" path="res://GameHandling/EventQueue.gd" id="1_0mgbh"]
+
+[node name="CombatFlowHandler" type="Node2D"]
+script = ExtResource("1_0mgbh")

@@ -17,9 +17,19 @@ func _process(delta):
 	pass
 
 func place_card(card: Card):
-	if phantom_card:
+	# if repositioning
+	if card in cards:
+		var curr_idx = cards.find(card)
+		if phantom_card:
+			cards.remove_at(curr_idx)
+			if phantom_card_pos > curr_idx:
+				phantom_card_pos -= 1
+			cards.insert(phantom_card_pos, card)
+	# if placing in specific spot
+	elif phantom_card:
 		cards.insert(phantom_card_pos, card)
 		remove_phantom_card()
+	# just drop at end
 	else:
 		cards.append(card)
 	layout_cards()

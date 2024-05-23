@@ -52,6 +52,7 @@ var focusloss_scale_override = false
 var in_focus = false
 var focus_scale = 1.05
 var scale_before_focused = 1
+var z_before_focused = 0
 var focusborder: Sprite2D
 var focusborder2: Sprite2D
 
@@ -172,6 +173,9 @@ func _on_area_2d_input_event(viewport, event, shape_idx):
 		if event.button_index == MOUSE_BUTTON_LEFT and not event.pressed:
 			end_of_being_dragged()
 			print("released")
+		
+		if event.button_index == MOUSE_BUTTON_RIGHT and my_state == States.Moving:
+			end_of_being_dragged()
 	return
 
 func change_focused(is_focus: bool):
@@ -181,12 +185,15 @@ func change_focused(is_focus: bool):
 	if in_focus:
 		scale_before_focused = scale
 		scale *= focus_scale
+		z_before_focused = z_index
+		z_index = 1000
 		focusborder.visible = true
 		focusborder2.visible = true
 	else:
 		# if the scale has not been overwritten we return to the original one
 		if not focusloss_scale_override:
 			scale = scale_before_focused
+			z_index = z_before_focused
 		focusloss_scale_override = false
 		focusborder.visible = false
 		focusborder2.visible = false

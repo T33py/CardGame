@@ -33,15 +33,22 @@ func play_card(card: Card)-> bool:
 	cards_being_hovered.clear()
 	if len(cards) >= number_of_cards_to_allow:
 		return false
+	
+	if not (card in cards):
+		new_card_played(card)
 	display_area.place_card(card)
 	cards = display_area.cards
+	return true
+
+func new_card_played(card: Card):
 	card.connect("mouse_hovers", _player_hovers_over_card)
 	card.connect("mouse_stopped_hovering", _player_no_longer_hovers_over_card)
 	card.am_being_hovered_over.connect(_on_card_is_hovered_over)
 	card.focusloss_scale_override = true
 	card.my_state = card.States.InField
 	card_played.emit()
-	return true
+	return
+
 
 func play_hand():
 	var cards_played: Array[Card] = []
@@ -78,22 +85,19 @@ func handle_multihover():
 	if len(cards_being_hovered) == 0:
 		return
 		
-	print(cards_being_hovered)
+	print("pa " + str(cards_being_hovered))
 	
-	for card in cards_being_hovered:
-		card.change_focused(false)
-		
 	if len(cards_being_hovered) == 1:
 		cards_being_hovered[0].change_focused(true)
 		return
 	
-	var top_z = 10000
 	var top_card:Card = cards[0]
+	var top_z = top_card.z_index
 	for card in cards_being_hovered:
-		card.change_focused(false)
-		if card.z_index < top_z:
+		if card.z_index > top_z:
 			top_card = card
-		
+			top_z = top_card.z_index
+		card.change_focused(false)
 	top_card.change_focused(true)
 	return
 
