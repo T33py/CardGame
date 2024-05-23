@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://d1bk2kdlqmaqi"]
 
-[ext_resource type="PackedScene" uid="uid://d5whwwfuy24v" path="res://GameHandling/GameManager.tscn" id="1_pny3p"]
+[ext_resource type="PackedScene" uid="uid://d5whwwfuy24v" path="res://Util/GameManager.tscn" id="1_pny3p"]
 [ext_resource type="PackedScene" uid="uid://8mr51aludca3" path="res://Cards/Hand.tscn" id="2_dh85x"]
 [ext_resource type="PackedScene" uid="uid://diaxixmrj6t2t" path="res://Cards/Deck.tscn" id="3_h1md0"]
 [ext_resource type="PackedScene" uid="uid://bsj58duurpo3t" path="res://Cards/PlayArea.tscn" id="4_wl3in"]
